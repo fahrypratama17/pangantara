@@ -1,12 +1,12 @@
 import Image from "next/image";
 import { MoveUpRight } from "lucide-react";
 
-const Top = () => {
+const HeroSection = () => {
   return (
-    <div className="rounded-b-[100px] border-b">
+    <div className="rounded-b-[100px] border-b bg-[#FFFFFF]">
       <div className="mx-auto w-full max-w-[85%]">
         <div className="grid grid-cols-2">
-          <div className="mx-auto flex h-[110vh] items-center justify-center">
+          <div className="flex h-[110vh] w-[75%] items-center justify-center">
             <div className="flex flex-col items-start gap-6">
               <div className="flex gap-6">
                 <Image
@@ -31,7 +31,7 @@ const Top = () => {
               </div>
             </div>
           </div>
-          <div className="flex items-center justify-center">
+          <div className="flex items-center justify-end">
             <div className="grid grid-cols-2 gap-4">
               <div className="flex flex-col gap-6">
                 <div className="h-[279px] w-[293px] rounded-2xl bg-[#BCBCBC]"></div>
@@ -48,4 +48,4 @@ const Top = () => {
   );
 };
 
-export default Top;
+export default HeroSection;

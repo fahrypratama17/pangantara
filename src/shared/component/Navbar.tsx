@@ -5,7 +5,12 @@ const Navbar = () => {
     <div className="fixed inset-x-0 top-0 z-100 mx-auto flex w-[85%] items-center justify-center pt-[30px]">
       <div className="flex w-full items-center justify-between rounded-full border bg-white px-[26px] py-[13px]">
         <div className="flex items-center justify-center gap-1">
-          <Image src="logo/logo.svg" alt="Logo" width={42} height={42} />
+          <Image
+            src="logo/logo.svg"
+            alt="logo pangantara"
+            width={42}
+            height={42}
+          />
           <p className="text-[20px] text-blue-900">
             PANGAN<span className="text-blue-600">TARA</span>
           </p>

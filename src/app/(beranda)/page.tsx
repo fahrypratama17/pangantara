@@ -1,9 +1,11 @@
 import HeroContainer from "@/feature/beranda/hero/container/HeroContainer";
+import TentangContainer from "@/feature/beranda/tentang/container/TentangContainer";
 
 const page = () => {
   return (
-    <main className="w-full">
+    <main>
       <HeroContainer />
+      <TentangContainer />
     </main>
   );
 };

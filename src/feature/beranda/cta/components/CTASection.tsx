@@ -1,7 +1,7 @@
 const CTASection = () => {
   return (
-    <section className="mt-40 mb-40">
-      <div className="mx-auto w-[70%] rounded-2xl border p-20">
+    <section className="bg-[#D9D9D9] pt-40 pb-40">
+      <div className="mx-auto w-[70%] rounded-2xl border bg-[#FFFFFF] p-20">
         <div className="mx-auto flex w-[713px] flex-col gap-5">
           <h1 className="text-center text-[48px]">
             Optimalkan Operasional Dapur SPPG Sekarang!

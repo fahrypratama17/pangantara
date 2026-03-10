@@ -5,7 +5,7 @@ import MengapaPangantara from "@/feature/beranda/tentang/components/MengapaPanga
 
 const TentangSection = () => {
   return (
-    <div className="bg-[#E8E8E8]">
+    <div className="bg-[#E8E8E8] pb-20">
       <Banner />
       <Stats />
       <div className="flex items-center gap-4 pt-20">

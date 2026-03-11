@@ -43,7 +43,7 @@ const RegisterSecond = () => {
             </div>
           </div>
         </Field>
-        <div className="mx-auto w-[80%] space-y-4">
+        <div className="mx-auto flex w-[80%] flex-col gap-28 space-y-4">
           <div className="w-full gap-4">
             <Button
               className="w-full py-5 text-white"

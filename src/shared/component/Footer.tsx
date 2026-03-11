@@ -7,7 +7,7 @@ const Footer = () => {
       <div className="mx-auto grid h-[200px] w-[70%] grid-cols-[1.3fr_0.7fr_0.7fr_1fr]">
         <div className="flex flex-col justify-center gap-8">
           <div className="flex items-center">
-            <Image src={"logo/logo.svg"} alt={"logo"} width={40} height={40} />
+            <Image src={"/logo/logo.svg"} alt={"logo"} width={40} height={40} />
             <p>PANGANTARA</p>
           </div>
           <p className="w-[60%]">

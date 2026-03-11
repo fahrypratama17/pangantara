@@ -6,7 +6,7 @@ const Navbar = () => {
       <div className="flex w-full items-center justify-between rounded-full border bg-white px-[26px] py-[13px]">
         <div className="flex items-center justify-center gap-1">
           <Image
-            src="logo/logo.svg"
+            src="/logo/logo.svg"
             alt="logo pangantara"
             width={42}
             height={42}

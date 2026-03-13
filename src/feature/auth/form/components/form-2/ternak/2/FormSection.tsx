@@ -1,9 +1,9 @@
-import Progress from "@/feature/auth/form/components/form-2/ternak/1/Progress";
+import Progress from "@/feature/auth/form/components/form-2/ternak/2/Progress";
 import Footer from "@/shared/component/Footer";
 import { Button } from "@/shared/component/ui/button";
 import { ArrowRight } from "lucide-react";
-import Kategori from "@/feature/auth/form/components/form-2/ternak/1/Kategori";
-import Pertanyaan from "@/feature/auth/form/components/form-2/ternak/1/Pertanyaan";
+import Kategori from "@/feature/auth/form/components/form-2/ternak/2/Kategori";
+import Pertanyaan from "@/feature/auth/form/components/form-2/ternak/2/Pertanyaan";
 
 const FormSection = () => {
   return (

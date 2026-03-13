@@ -24,25 +24,44 @@ const Pertanyaan = () => {
             1. Jenis hasil ternak yang dijual?
           </h2>
           <div className="flex items-center gap-8">
-            <div className="h-8 w-8 rounded-full border-2 border-green-900 bg-orange-500"></div>
+            <div className="h-8 w-8 rounded-full border-2 border-green-900 bg-white"></div>
             <h3 className="text-2xl-medium text-green-900">Telur</h3>
           </div>
           <div className="flex items-center gap-8">
-            <div className="h-8 w-8 rounded-full border-2 border-green-900 bg-white"></div>
+            <div className="h-8 w-8 rounded-full border-2 border-green-900 bg-orange-500"></div>
             <h3 className="text-2xl-medium text-green-900">Susu</h3>
           </div>
         </div>
         <div className="flex flex-col gap-8">
-          <h2 className="text-2xl-bold text-green-900">2. Sumber telur?</h2>
+          <h2 className="text-2xl-bold text-green-900">
+            2. Jenis susu yang dijual?
+          </h2>
           <div className="flex items-center gap-8">
             <div className="h-8 w-8 rounded-full border-2 border-green-900 bg-orange-500"></div>
+            <h3 className="text-2xl-medium text-green-900">Susu segar</h3>
+          </div>
+          <div className="flex items-center gap-8">
+            <div className="h-8 w-8 rounded-full border-2 border-green-900 bg-white"></div>
             <h3 className="text-2xl-medium text-green-900">
-              Peternakan sendiri
+              Susu pasteurisasi
             </h3>
           </div>
           <div className="flex items-center gap-8">
             <div className="h-8 w-8 rounded-full border-2 border-green-900 bg-white"></div>
-            <h3 className="text-2xl-medium text-green-900">Peternakan lokal</h3>
+            <h3 className="text-2xl-medium text-green-900">Susu UHT</h3>
+          </div>
+        </div>
+        <div className="flex flex-col gap-8">
+          <h2 className="text-2xl-bold text-green-900">3. Asal susu?</h2>
+          <div className="flex items-center gap-8">
+            <div className="h-8 w-8 rounded-full border-2 border-green-900 bg-orange-500"></div>
+            <h3 className="text-2xl-medium text-green-900">
+              Peternakan sapi perah
+            </h3>
+          </div>
+          <div className="flex items-center gap-8">
+            <div className="h-8 w-8 rounded-full border-2 border-green-900 bg-white"></div>
+            <h3 className="text-2xl-medium text-green-900">Koperasi susu</h3>
           </div>
           <div className="flex items-center gap-8">
             <div className="h-8 w-8 rounded-full border-2 border-green-900 bg-white"></div>
@@ -51,7 +70,7 @@ const Pertanyaan = () => {
         </div>
         <div className="flex flex-col gap-8">
           <h2 className="text-2xl-bold text-green-900">
-            3. Nama peternakan asal telur?{" "}
+            4. Nama unit usaha asal susu?{" "}
             <span className="text-[#FF4747]">*</span>
           </h2>
           <Input
@@ -61,7 +80,7 @@ const Pertanyaan = () => {
         </div>
         <div className="flex flex-col gap-8">
           <h2 className="text-2xl-bold text-green-900">
-            4. Apakah unit usaha tersebut memiliki sertifikat Nomor Kontrol
+            5. Apakah unit usaha tersebut memiliki sertifikat Nomor Kontrol
             Veteriner (NKV)?
           </h2>
           <div className="flex items-center gap-8">
@@ -75,7 +94,7 @@ const Pertanyaan = () => {
         </div>
         <div className="flex flex-col gap-8">
           <h2 className="text-2xl-bold text-green-900">
-            5. Nomor sertifikat Nomor Kontrol Veteriner (NKV)? (
+            6. Nomor sertifikat Nomor Kontrol Veteriner (NKV)? (
             <span className="text-orange-800">Jika diketahui</span> )
           </h2>
           <Input
@@ -85,7 +104,7 @@ const Pertanyaan = () => {
         </div>
         <div className="flex flex-col gap-8">
           <h2 className="text-2xl-bold text-green-900">
-            6. Upload bukti asal produk (
+            7. Upload bukti asal produk (
             <span className="text-orange-800">pilih satu atau lebih</span>)
           </h2>
           <div className="flex items-center gap-8">
@@ -134,8 +153,8 @@ const Pertanyaan = () => {
         </Card>
         <div className="flex flex-col gap-8">
           <h2 className="text-2xl-bold text-green-900">
-            7. Kondisi telur memiliki kulit utuh, tidak retak, dan bersih dari
-            kotoran?
+            8. Apakah susu tanpa tambahan gula, kemasan tidak rusak, dan
+            disimpan sesuai suhu yang dianjurkan?
           </h2>
           <div className="flex items-center gap-8">
             <div className="h-8 w-8 rounded-full border-2 border-green-900 bg-orange-500"></div>

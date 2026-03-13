@@ -30,7 +30,7 @@
     --color-orange-900 : #6b4700;
 }
 
-@layer utilites {
+@layer utilities {
     /* Bold */
     .text-8xl-bold {
         font-size: 96px;

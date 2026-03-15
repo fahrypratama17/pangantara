@@ -1,9 +1,9 @@
-import PenggunaanSection from "@/feature/beranda/penggunaan/components/PenggunaanSection";
+import AlurSection from "@/feature/beranda/penggunaan/components/AlurSection";
 
 const PenggunaanContainer = () => {
   return (
     <>
-      <PenggunaanSection />
+      <AlurSection />
     </>
   );
 };

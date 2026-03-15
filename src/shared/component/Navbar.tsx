@@ -3,7 +3,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { motion } from "framer-motion";
+import { useState, useEffect } from "react";
 
 const NavLink = [
   { name: "Beranda", href: "/#beranda", path: "/" },
@@ -15,9 +15,36 @@ const NavLink = [
 const Navbar = () => {
   const pathname = usePathname();
 
+  const [scrolled, setScrolled] = useState(false);
+  const [showNavbar, setShowNavbar] = useState(true);
+  const [lastScrollY, setLastScrollY] = useState(0);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      const currentScrollY = window.scrollY;
+
+      if (currentScrollY < 400) {
+        setShowNavbar(true);
+      } else if (currentScrollY > lastScrollY) {
+        setShowNavbar(false);
+      } else {
+        setShowNavbar(true);
+      }
+
+      setLastScrollY(currentScrollY);
+      setScrolled(currentScrollY > 30);
+    };
+
+    window.addEventListener("scroll", handleScroll);
+
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, [lastScrollY]);
+
   return (
-    <div className="fixed inset-x-0 top-0 z-100 mx-auto flex w-[85%] items-center justify-center pt-7.5">
-      <div className="flex w-full items-center justify-between rounded-full border-2 border-green-900 bg-white px-20 py-3.25">
+    <div
+      className={`navbar ${scrolled ? "scrolled" : "not-scrolled"} ${showNavbar ? "pointer-events-auto opacity-100" : "pointer-events-none opacity-0"}`}
+    >
+      <div className={`flex w-full items-center justify-between`}>
         <div className="flex items-center justify-center gap-1">
           <Image
             src="/logo/logo.svg"
@@ -60,7 +87,7 @@ const Navbar = () => {
         </div>
         <div className="flex items-center justify-center gap-1">
           <Link
-            href={"/"}
+            href={"/login"}
             className="group text-lg-bold relative overflow-hidden rounded-[24px] border-3 border-orange-600 px-9 py-1.25 text-orange-900"
           >
             <span className="relative z-10 transition-colors duration-300 group-hover:text-white">
@@ -69,7 +96,7 @@ const Navbar = () => {
             <span className="absolute inset-0 origin-left scale-x-0 bg-orange-600 transition-transform duration-300 group-hover:scale-x-100"></span>
           </Link>
           <Link
-            href={"/"}
+            href={"/register"}
             className="group text-lg-bold relative overflow-hidden rounded-[24px] border-3 border-orange-600 bg-orange-600 px-9 py-1.25 text-white"
           >
             <span className="relative z-10 transition-colors duration-300 group-hover:text-orange-900">

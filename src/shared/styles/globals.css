@@ -259,3 +259,17 @@
         @apply font-sans scroll-smooth;
     }
 }
+
+@layer components {
+    .navbar {
+        @apply fixed inset-x-0 top-0 z-100 mx-auto flex items-center justify-center pt-7.5 transition-all duration-300;
+
+        &.scrolled {
+            @apply  top-0 w-[85%] rounded-full border-2 border-green-900 bg-white px-20 py-3.5 mt-8;
+        }
+
+        &.not-scrolled {
+            @apply top-0 bg-white pt-2 w-full border-b-2 border-green-900 px-20 py-3.5;
+        }
+    }
+}

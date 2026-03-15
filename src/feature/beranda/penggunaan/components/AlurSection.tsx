@@ -3,7 +3,7 @@ import SPPG from "@/feature/beranda/penggunaan/components/SPPG";
 import { Button } from "@/shared/component/ui/button";
 import { ArrowRight } from "lucide-react";
 
-const PenggunaanSection = () => {
+const AlurSection = () => {
   return (
     <div className="rounded-t-[100px]">
       <div className="flex items-center gap-4 pt-20">
@@ -29,4 +29,4 @@ const PenggunaanSection = () => {
   );
 };
 
-export default PenggunaanSection;
+export default AlurSection;

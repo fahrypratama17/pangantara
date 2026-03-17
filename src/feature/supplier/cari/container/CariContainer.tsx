@@ -6,8 +6,8 @@ import Berhasil from "@/feature/supplier/cari/components/berhasil/Berhasil";
 const CariContainer = () => {
   return (
     <>
-      {/*<CariSection />*/}
-      <Berhasil />
+      <CariSection />
+      {/*<Berhasil />*/}
     </>
   );
 };

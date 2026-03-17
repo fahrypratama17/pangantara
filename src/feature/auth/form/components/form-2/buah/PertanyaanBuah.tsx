@@ -2,7 +2,7 @@ import { Card, CardContent, CardHeader } from "@/shared/component/ui/card";
 import { Citrus, ImageUp } from "lucide-react";
 import { Button } from "@/shared/component/ui/button";
 
-const Pertanyaan = () => {
+const PertanyaanBuah = () => {
   return (
     <Card className="border-2 border-green-900 bg-green-50 px-12 py-8">
       <CardHeader className="mb-8 flex items-center justify-start gap-4">
@@ -72,4 +72,4 @@ const Pertanyaan = () => {
   );
 };
 
-export default Pertanyaan;
+export default PertanyaanBuah;

@@ -3,3 +3,9 @@ export type FlowCardType = {
   title: string;
   desc: string;
 };
+
+export type FAQType = {
+  id: number;
+  q: string;
+  a: string;
+};

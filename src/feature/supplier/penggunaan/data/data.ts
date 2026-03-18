@@ -1,4 +1,7 @@
-import { FlowCardType } from "@/feature/supplier/penggunaan/types/type";
+import {
+  FAQType,
+  FlowCardType,
+} from "@/feature/supplier/penggunaan/types/type";
 
 export const FlowCardMitraData: FlowCardType[] = [
   {
@@ -53,5 +56,33 @@ export const FlowCardSPPGData: FlowCardType[] = [
     id: 5,
     title: "Menerima dan Mengecek Barang",
     desc: "Supplier mengirim bahan ke dapur SPPG, tim SPPG mengecek ulang kondisi bahan pangan.",
+  },
+];
+
+export const FAQData: FAQType[] = [
+  {
+    id: 1,
+    q: "Apa itu Pangantara?",
+    a: "Pangantara adalah platform yang menghubungkan dapur SPPG dengan supplier dan pedagang pasar lokal untuk mempermudah pengadaan bahan pangan dalam program MBG.",
+  },
+  {
+    id: 2,
+    q: "Siapa saja yang dapat menggunakan Pangantara?",
+    a: "Pangantara adalah platform yang menghubungkan dapur SPPG dengan supplier dan pedagang pasar lokal untuk mempermudah pengadaan bahan pangan dalam program MBG.",
+  },
+  {
+    id: 3,
+    q: "Bagaimana cara menjadi mitra Pangantara?",
+    a: "Pangantara adalah platform yang menghubungkan dapur SPPG dengan supplier dan pedagang pasar lokal untuk mempermudah pengadaan bahan pangan dalam program MBG.",
+  },
+  {
+    id: 4,
+    q: "Apakah semua mitra langsung dapat menjual produknya?",
+    a: "Pangantara adalah platform yang menghubungkan dapur SPPG dengan supplier dan pedagang pasar lokal untuk mempermudah pengadaan bahan pangan dalam program MBG.",
+  },
+  {
+    id: 5,
+    q: "Bagaimana cara SPPG memesan bahan pangan?",
+    a: "Pangantara adalah platform yang menghubungkan dapur SPPG dengan supplier dan pedagang pasar lokal untuk mempermudah pengadaan bahan pangan dalam program MBG.",
   },
 ];

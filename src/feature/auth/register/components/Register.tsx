@@ -8,7 +8,7 @@ import { Tabs, TabsList, TabsTrigger } from "@/shared/component/ui/tabs";
 const Register = () => {
   return (
     <div className="flex h-screen items-center justify-center bg-[#F4F4F4]">
-      <div className="mx-auto h-[90vh] w-full max-w-[35%] space-y-4 rounded-[40px] border-3 border-green-900 bg-green-50 p-10 py-12 shadow-[4px_4px_0px_0px_var(--color-green-900)]">
+      <div className="mx-auto h-[90vh] w-full max-w-[80%] space-y-4 rounded-[40px] border-3 border-green-900 bg-green-50 p-10 py-12 shadow-[4px_4px_0px_0px_var(--color-green-900)] lg:max-w-[35%]">
         <div className="flex flex-col items-center justify-center">
           <Image
             className="mb-5"
@@ -26,15 +26,15 @@ const Register = () => {
           defaultValue="SPPG"
           className="mx-auto mb-12 flex w-[80%] cursor-pointer justify-between rounded-[32px] border-2 border-green-900 bg-[#E6E6E6] px-0.5 py-0.5"
         >
-          <TabsList className="text-sm-medium w-full rounded-[32px] px-10 py-2 text-green-900">
+          <TabsList className="text-sm-medium w-full rounded-[32px] py-2 text-green-900">
             <TabsTrigger
-              className="text-sm-medium cursor-pointer rounded-[32px] px-15 py-3.5 text-green-900"
+              className="text-sm-medium flex-1 cursor-pointer rounded-[32px] py-3.5 text-green-900"
               value="SPPG"
             >
               Tim SPPG
             </TabsTrigger>
             <TabsTrigger
-              className="text-sm-medium cursor-pointer rounded-[32px] px-15 py-3.5 text-green-900"
+              className="text-sm-medium flex-1 cursor-pointer rounded-[32px] py-3.5 text-green-900"
               value="Mitra"
             >
               Mitra

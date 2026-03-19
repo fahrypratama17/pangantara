@@ -4,7 +4,7 @@ import Link from "next/link";
 
 const CTASection = () => {
   return (
-    <section className="relative pt-40 pb-40">
+    <section className="relative mb-20 pt-40 pb-40">
       <Image
         className="z-0 w-[85%] object-cover"
         src={"/images/cta-1.jpg"}

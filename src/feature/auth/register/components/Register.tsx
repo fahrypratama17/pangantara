@@ -1,8 +1,6 @@
 "use client";
 
 import Image from "next/image";
-import { useSearchParams, useRouter } from "next/navigation";
-
 import {
   Tabs,
   TabsContent,
@@ -12,12 +10,10 @@ import {
 import SPPGField from "@/feature/auth/register/components/SPPGField";
 import MitraField from "@/feature/auth/register/components/MitraField";
 
-const Register = () => {
-  const registerParams = useSearchParams();
-  const type = registerParams.get("type") || "sppg";
+type TabType = "sppg" | "mitra";
+type Props = { type: TabType; onChangeTab: (val: TabType) => void };
 
-  const routerParams = useRouter();
-
+const Register = ({ type, onChangeTab }: Props) => {
   return (
     <div className="flex h-screen items-center justify-center bg-[#F4F4F4]">
       <div className="mx-auto h-[90vh] w-full max-w-[80%] space-y-4 rounded-[40px] border-3 border-green-900 bg-green-50 p-10 py-12 shadow-[4px_4px_0px_0px_var(--color-green-900)] lg:max-w-[35%]">
@@ -36,9 +32,7 @@ const Register = () => {
         </div>
         <Tabs
           value={type}
-          onValueChange={(val) => {
-            routerParams.push(`/register?type=${val}`);
-          }}
+          onValueChange={(val) => onChangeTab(val as TabType)}
           className="mx-auto w-[80%]"
         >
           <TabsList className="text-sm-medium mb-12 flex w-full rounded-[32px] border-2 border-green-900 bg-[#E6E6E6] py-4.5 text-green-900">

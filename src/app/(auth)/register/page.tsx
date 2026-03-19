@@ -1,13 +1,12 @@
+import { Suspense } from "react";
 import RegisterContainer from "@/feature/auth/register/container/RegisterContainer";
 
-type Props = {
-  searchParams: {
-    type?: string;
-  };
+const Page = () => {
+  return (
+    <Suspense fallback={<div>Loading...</div>}>
+      <RegisterContainer />
+    </Suspense>
+  );
 };
 
-const page = ({ searchParams }: Props) => {
-  return <RegisterContainer type={searchParams.type} />;
-};
-
-export default page;
+export default Page;

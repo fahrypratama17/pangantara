@@ -3,7 +3,7 @@ import EmailCard from "@/feature/supplier/hubungi/components/EmailCard";
 
 const HubungiSection = () => {
   return (
-    <section className="flex h-[100vh] flex-col items-center justify-center gap-25 bg-green-50">
+    <section className="flex h-[130vh] flex-col items-center justify-center gap-25 bg-green-50">
       <div className="flex w-[45%] flex-col gap-4 text-center">
         <h1 className="text-5xl-bold text-green-800">
           Butuh Bantuan Lebih Lanjut?

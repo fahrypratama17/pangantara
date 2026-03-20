@@ -37,9 +37,12 @@ const Login = () => {
             />
           </div>
 
-          <p className="text-sm-medium cursor-pointer text-end text-[#A9A9A9] hover:underline">
+          <Link
+            href="/reset-password"
+            className="text-sm-medium cursor-pointer text-end text-[#A9A9A9] hover:underline"
+          >
             Lupa kata sandi?
-          </p>
+          </Link>
         </Field>
         <div className="mx-auto w-[80%] space-y-4">
           <Button className="w-full cursor-pointer rounded-[36px] border-2 border-green-900 bg-orange-600 py-5 text-white hover:scale-105">

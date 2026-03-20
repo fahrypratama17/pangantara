@@ -1,14 +1,22 @@
-import Image from "next/image";
-import { Field } from "@/shared/component/ui/field";
-import { Package, MapPin, Mail, ArrowRight } from "lucide-react";
-import Link from "next/link";
-import { FormInput } from "@/shared/component/FormInput";
-import { Tabs, TabsList, TabsTrigger } from "@/shared/component/ui/tabs";
+"use client";
 
-const Register = () => {
+import Image from "next/image";
+import {
+  Tabs,
+  TabsContent,
+  TabsList,
+  TabsTrigger,
+} from "@/shared/component/ui/tabs";
+import SPPGField from "@/feature/auth/register/components/SPPGField";
+import MitraField from "@/feature/auth/register/components/MitraField";
+
+type TabType = "sppg" | "mitra";
+type Props = { type: TabType; onChangeTab: (val: TabType) => void };
+
+const Register = ({ type, onChangeTab }: Props) => {
   return (
     <div className="flex h-screen items-center justify-center bg-[#F4F4F4]">
-      <div className="mx-auto h-[90vh] w-full max-w-[35%] space-y-4 rounded-[40px] border-3 border-green-900 bg-green-50 p-10 py-12 shadow-[4px_4px_0px_0px_var(--color-green-900)]">
+      <div className="mx-auto h-[90vh] w-full max-w-[80%] space-y-4 rounded-[40px] border-3 border-green-900 bg-green-50 p-10 py-12 shadow-[4px_4px_0px_0px_var(--color-green-900)] lg:max-w-[35%]">
         <div className="flex flex-col items-center justify-center">
           <Image
             className="mb-5"
@@ -23,53 +31,33 @@ const Register = () => {
           </p>
         </div>
         <Tabs
-          defaultValue="SPPG"
-          className="mx-auto mb-12 flex w-[80%] cursor-pointer justify-between rounded-[32px] border-2 border-green-900 bg-[#E6E6E6] px-0.5 py-0.5"
+          key={type}
+          value={type}
+          onValueChange={(val) => onChangeTab(val as TabType)}
+          className="mx-auto w-[80%]"
         >
-          <TabsList className="text-sm-medium w-full rounded-[32px] px-10 py-2 text-green-900">
+          <TabsList className="text-sm-medium mb-12 flex w-full rounded-[32px] border-2 border-green-900 bg-[#E6E6E6] py-4.5 text-green-900">
             <TabsTrigger
-              className="text-sm-medium cursor-pointer rounded-[32px] px-15 py-3.5 text-green-900"
-              value="SPPG"
+              value="sppg"
+              className="text-sm-medium flex-1 cursor-pointer rounded-[32px] py-3.5 text-green-900"
             >
               Tim SPPG
             </TabsTrigger>
             <TabsTrigger
-              className="text-sm-medium cursor-pointer rounded-[32px] px-15 py-3.5 text-green-900"
-              value="Mitra"
+              value="mitra"
+              className="text-sm-medium flex-1 cursor-pointer rounded-[32px] py-3.5 text-green-900"
             >
               Mitra
             </TabsTrigger>
           </TabsList>
+          <TabsContent value="sppg">
+            <SPPGField />
+          </TabsContent>
+          <TabsContent value="mitra">
+            <MitraField />
+          </TabsContent>
         </Tabs>
-        <Field className="mx-auto mb-6 w-[80%]">
-          <div className="mb-9 space-y-4">
-            <FormInput
-              type="text"
-              placeholder="Masukkan Nama Dapur"
-              leftIcon={<Package size={20} />}
-            />
-            <FormInput
-              type="text"
-              placeholder="Masukkan Alamat"
-              leftIcon={<MapPin size={20} />}
-            />
-            <FormInput
-              type="email"
-              placeholder="Masukkan Email"
-              leftIcon={<Mail size={20} />}
-            />
-          </div>
 
-          <div className="mt-2 flex origin-right cursor-pointer items-center justify-end gap-2 transition-transform duration-200 hover:scale-105">
-            <p className="text-sm-bold text-end text-green-900">Lanjutkan</p>
-            <Link
-              href="/password"
-              className="rounded-full border bg-green-700 p-2 text-orange-400"
-            >
-              <ArrowRight width={20} height={20} />
-            </Link>
-          </div>
-        </Field>
         <div className="mx-auto w-[80%] space-y-4">
           <p className="text-md-medium mt-2 text-center text-[#A9A9A9]">
             Sudah punya akun?{" "}

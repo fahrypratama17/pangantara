@@ -1,7 +1,6 @@
 import { Card, CardContent } from "@/shared/component/ui/card";
 import { ImageUp } from "lucide-react";
 import { Button } from "@/shared/component/ui/button";
-import { Input } from "@/shared/component/ui/input";
 import { useFormStore } from "@/shared/store/useFormStore";
 import FormRadioGroup from "@/feature/auth/form/components/form-2/FormRadioGroup";
 import { FormInputGroup } from "@/feature/auth/form/components/form-2/FormInputGroup";

@@ -1,9 +1,9 @@
 import { Card, CardContent } from "@/shared/component/ui/card";
 import { ImageUp } from "lucide-react";
 import { Button } from "@/shared/component/ui/button";
-import FormRadioGroup from "@/feature/auth/form/components/form-2/FormRadioGroup";
+import FormRadioGroup from "@/shared/component/auth/FormRadioGroup";
 import { useFormStore } from "@/shared/store/useFormStore";
-import { FormInputGroup } from "@/feature/auth/form/components/form-2/FormInputGroup";
+import { FormInputGroup } from "@/shared/component/auth/FormInputGroup";
 
 const PertanyaanSusu = () => {
   const { answers, setAnswers } = useFormStore();
@@ -13,9 +13,13 @@ const PertanyaanSusu = () => {
       <div className="flex flex-col gap-8">
         <FormRadioGroup
           label="2. Jenis susu yang dijual?"
-          value={answers.jenisSusu ?? ""}
+          value={answers.ternak?.jenisSusu ?? ""}
           onChange={(val) =>
-            setAnswers("jenisSusu", val as "segar" | "pasteurisasi" | "uht")
+            setAnswers(
+              "ternak",
+              "jenisSusu",
+              val as "segar" | "pasteurisasi" | "uht",
+            )
           }
           options={[
             { label: "Susu segar", value: "segar" },
@@ -25,9 +29,13 @@ const PertanyaanSusu = () => {
         />
         <FormRadioGroup
           label="3. Asal susu?"
-          value={answers.asalSusu ?? ""}
+          value={answers.ternak?.asalSusu ?? ""}
           onChange={(val) =>
-            setAnswers("asalSusu", val as "sapi" | "koperasi" | "distributor")
+            setAnswers(
+              "ternak",
+              "asalSusu",
+              val as "sapi" | "koperasi" | "distributor",
+            )
           }
           options={[
             { label: "Peternakan sapi perah", value: "sapi" },
@@ -42,16 +50,16 @@ const PertanyaanSusu = () => {
               <span className="text-[#FF4747]">*</span>
             </>
           }
-          value={answers.usahaSusu ?? ""}
-          onChange={(val) => setAnswers("usahaSusu", val)}
+          value={answers.ternak?.usahaSusu ?? ""}
+          onChange={(val) => setAnswers("ternak", "usahaSusu", val)}
           placeholder="Masukkan Nama Unit Usaha"
         />
         <FormRadioGroup
           label="5. Apakah unit usaha tersebut memiliki sertifikat Nomor Kontrol
             Veteriner (NKV)?"
-          value={answers.NKV ?? ""}
+          value={answers.ternak?.NKV ?? ""}
           onChange={(val) => {
-            setAnswers("NKV", val as "ya" | "tidak");
+            setAnswers("ternak", "NKV", val as "ya" | "tidak");
           }}
           options={[
             { label: "Ya", value: "ya" },
@@ -65,8 +73,8 @@ const PertanyaanSusu = () => {
               <span className="text-orange-800">Jika diketahui</span> )
             </>
           }
-          value={answers.nomorNKV ?? ""}
-          onChange={(val) => setAnswers("nomorNKV", val)}
+          value={answers.ternak?.nomorNKV ?? ""}
+          onChange={(val) => setAnswers("ternak", "nomorNKV", val)}
           placeholder="Masukkan sertifikat NKV"
         />
         <FormRadioGroup
@@ -76,9 +84,10 @@ const PertanyaanSusu = () => {
               <span className="text-orange-800">pilih satu atau lebih</span>)
             </>
           }
-          value={answers.uploadBukti ?? ""}
+          value={answers.ternak?.uploadBukti ?? ""}
           onChange={(val) => {
             setAnswers(
+              "ternak",
               "uploadBukti",
               val as "NKV" | "invoice" | "sks" | "fotlab",
             );
@@ -117,8 +126,10 @@ const PertanyaanSusu = () => {
         <FormRadioGroup
           label="8. Apakah susu tanpa tambahan gula, kemasan tidak rusak, dan
             disimpan sesuai suhu yang dianjurkan?"
-          value={answers.susuAman ?? ""}
-          onChange={(val) => setAnswers("susuAman", val as "ya" | "tidak")}
+          value={answers.ternak?.susuAman ?? ""}
+          onChange={(val) =>
+            setAnswers("ternak", "susuAman", val as "ya" | "tidak")
+          }
           options={[
             { label: "Ya", value: "ya" },
             { label: "Tidak", value: "tidak" },

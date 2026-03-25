@@ -4,6 +4,8 @@ import { Button } from "@/shared/component/ui/button";
 import FormRadioGroup from "@/shared/component/auth/FormRadioGroup";
 import { useFormStore } from "@/shared/store/useFormStore";
 import { FormInputGroup } from "@/shared/component/auth/FormInputGroup";
+import { UploadBuktiType } from "@/feature/auth/form/types/type";
+import FormCheckboxGroup from "@/shared/component/auth/FormCheckboxGroup";
 
 const PertanyaanSusu = () => {
   const { answers, setAnswers } = useFormStore();
@@ -77,20 +79,24 @@ const PertanyaanSusu = () => {
           onChange={(val) => setAnswers("ternak", "nomorNKV", val)}
           placeholder="Masukkan sertifikat NKV"
         />
-        <FormRadioGroup
+        <FormCheckboxGroup
           label={
             <>
-              7. Upload bukti asal produk (
+              6. Upload bukti asal produk (
               <span className="text-orange-800">pilih satu atau lebih</span>)
             </>
           }
-          value={answers.ternak?.uploadBukti ?? ""}
-          onChange={(val) => {
-            setAnswers(
-              "ternak",
-              "uploadBukti",
-              val as "NKV" | "invoice" | "sks" | "fotlab",
-            );
+          value={answers.ternak?.uploadBukti ?? []}
+          onChange={(val: UploadBuktiType) => {
+            const current = answers.ternak?.uploadBukti ?? [];
+
+            const exists = current.includes(val);
+
+            const updated = exists
+              ? current.filter((item) => item !== val)
+              : [...current, val];
+
+            setAnswers("ternak", "uploadBukti", updated);
           }}
           options={[
             {

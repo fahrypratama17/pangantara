@@ -5,6 +5,8 @@ import FormRadioGroup from "@/shared/component/auth/FormRadioGroup";
 import { useFormStore } from "@/shared/store/useFormStore";
 import { FormInputGroup } from "@/shared/component/auth/FormInputGroup";
 import { useFormValidation } from "@/hooks/use-form-validation";
+import FormCheckboxGroup from "@/shared/component/auth/FormCheckboxGroup";
+import { UploadBuktiType } from "@/feature/auth/form/types/type";
 
 const PertanyaanAyamSapi = () => {
   const { answers, setAnswers } = useFormStore();
@@ -59,20 +61,24 @@ const PertanyaanAyamSapi = () => {
           error={errors?.nomorNKV?._errors?.[0]}
           placeholder="Masukkan sertifikat NKV"
         />
-        <FormRadioGroup
+        <FormCheckboxGroup
           label={
             <>
               6. Upload bukti asal produk (
               <span className="text-orange-800">pilih satu atau lebih</span>)
             </>
           }
-          value={answers.daging?.uploadBukti ?? ""}
-          onChange={(val) => {
-            setAnswers(
-              "daging",
-              "uploadBukti",
-              val as "NKV" | "invoice" | "sks" | "fotlab",
-            );
+          value={answers.daging?.uploadBukti ?? []}
+          onChange={(val: UploadBuktiType) => {
+            const current = answers.daging?.uploadBukti ?? [];
+
+            const exists = current.includes(val);
+
+            const updated = exists
+              ? current.filter((item) => item !== val)
+              : [...current, val];
+
+            setAnswers("daging", "uploadBukti", updated);
           }}
           options={[
             {

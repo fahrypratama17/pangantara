@@ -1,5 +1,5 @@
 import { Store, Banknote } from "lucide-react";
-import CardProduct from "@/feature/mitra/dashboard/components/CardProduct";
+import CardProductActive from "@/feature/mitra/dashboard/components/CardProductActive";
 import MitraTable from "@/feature/mitra/dashboard/components/MitraTable";
 import { mitraData } from "@/feature/mitra/dashboard/data/data";
 import CardIncome from "@/feature/mitra/dashboard/components/CardIncome";
@@ -53,7 +53,7 @@ const MitraDashboardSection = () => {
         </div>
         <div className="grid w-full grid-cols-2 gap-6">
           {cardProductData.map((item, index) => (
-            <CardProduct
+            <CardProductActive
               key={index}
               icon={item.icon}
               title={item.title}

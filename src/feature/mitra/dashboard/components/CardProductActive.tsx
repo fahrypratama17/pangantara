@@ -6,7 +6,7 @@ type Props = {
   value: number;
 };
 
-const CardProduct = ({ icon, title, value }: Props) => {
+const CardProductActive = ({ icon, title, value }: Props) => {
   return (
     <Card className="rounded-[24px] border border-green-900 bg-green-600 px-8 py-10">
       <CardContent className="flex flex-col gap-3">
@@ -20,4 +20,4 @@ const CardProduct = ({ icon, title, value }: Props) => {
   );
 };
 
-export default CardProduct;
+export default CardProductActive;

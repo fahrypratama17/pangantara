@@ -13,12 +13,12 @@ interface FormInputProps {
 }
 
 export const FormInput = ({
-  type = "text",
-  placeholder,
-  className,
-  leftIcon,
-  rightIcon,
-}: FormInputProps) => {
+                            type = "text",
+                            placeholder,
+                            className,
+                            leftIcon,
+                            rightIcon,
+                          }: FormInputProps) => {
   const [show, setShow] = useState(false);
   const isPassword = type === "password";
 

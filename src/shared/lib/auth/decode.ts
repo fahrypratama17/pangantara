@@ -8,8 +8,8 @@ interface User {
     email: string;
     role: Roles;
   };
-  accessToken?: string;
-  refreshToken?: string;
+  access_token?: string;
+  refresh_token?: string;
   isLoggedIn?: boolean;
   expiresAt?: number;
 }

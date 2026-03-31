@@ -20,8 +20,8 @@ async function _getSession() {
 
   if (!session.isLoggedIn) {
     session.user = defaultSession.user;
-    session.accessToken = defaultSession.accessToken;
-    session.refreshToken = defaultSession.refreshToken;
+    session.access_token = defaultSession.access_token;
+    session.refresh_token = defaultSession.refresh_token;
     session.isLoggedIn = defaultSession.isLoggedIn;
   }
 
@@ -31,9 +31,9 @@ async function _getSession() {
 export async function createSession(token: string) {
   const session = await _getSession();
   const decode = decodeToken(token);
-  session.accessToken = token;
+  session.access_token = token;
   session.user = decode.user.user;
-  session.refreshToken = decode.user.refreshToken;
+  session.refresh_token = decode.user.refresh_token;
   session.isLoggedIn = decode.user.isLoggedIn;
   session.expiresAt = Date.now() + Max_Age;
 

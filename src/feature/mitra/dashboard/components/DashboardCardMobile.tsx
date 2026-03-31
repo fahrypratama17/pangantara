@@ -39,7 +39,7 @@ const VerifikasiCardMobile = ({ data }: Props) => {
                 </div>
               </div>
 
-              <div className="flex h-5 w-[90%] items-center justify-between rounded-[12px] border border-green-900 bg-green-500 px-2 text-[10px] text-green-50">
+              <div className="flex h-5 w-[90%] items-center justify-between rounded-[12px] bg-orange-600 px-2 text-[10px] text-green-50">
                 <p>Total</p>
                 <p>{total}</p>
               </div>

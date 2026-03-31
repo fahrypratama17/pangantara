@@ -64,7 +64,7 @@ const MitraProductSection = () => {
           </Button>
         </div>
 
-        <div className="grid w-full grid-cols-[2fr_0.6fr] gap-6">
+        <div className="grid w-full grid-cols-[2fr_0.6fr] gap-3 md:gap-6">
           <div className="relative w-full">
             <Input
               className="peer border-2 border-green-900 bg-white py-1 text-[8px] transition-all duration-200 placeholder:text-[8px] placeholder:text-[#A7A7A7] placeholder-shown:px-10 active:ring-2 md:py-5 md:text-lg md:placeholder:text-lg md:placeholder:font-medium"

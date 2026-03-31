@@ -1,4 +1,4 @@
-import type { Role } from "@/shared/lib/auth/role";
+import type { Roles } from "@/shared/lib/auth/role";
 
 export interface LoginRequest {
   email: string;
@@ -14,6 +14,6 @@ export interface LoginResponse {
     user_id: string;
     name: string;
     email: string;
-    role: Role;
+    role: Roles;
   };
 }

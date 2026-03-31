@@ -5,7 +5,7 @@ import type {
   RegisterResponse,
 } from "./dto";
 
-const BASE_URL = process.env.NEXT_PUBLIC_API_URL;
+const BASE_URL = process.env.API_URL;
 
 async function postJSON<T>(url: string, payload: unknown): Promise<T> {
   const res = await fetch(url, {

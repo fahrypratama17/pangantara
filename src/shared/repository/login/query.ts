@@ -1,6 +1,6 @@
 import type { LoginRequest, LoginResponse } from "./dto";
 
-const BASE_URL = process.env.NEXT_PUBLIC_API_URL;
+const BASE_URL = process.env.API_URL;
 
 export const authQuery = {
   login: async (payload: LoginRequest): Promise<LoginResponse> => {

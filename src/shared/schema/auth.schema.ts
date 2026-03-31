@@ -9,8 +9,14 @@ export const loginSchema = z.object({
 export const registerSchema = z.object({
   name: z.string().min(2, "Minimal 2 karakter"),
   email: z.string().email("Email tidak valid"),
-  password: z.string().min(8, "Minimal 8 karakter"),
-  confirm_password: z.string().min(8, "Minimal 8 karakter"),
+  password: z
+    .string()
+    .min(8, "Password minimal 8 karakter")
+    .max(50, "Password maksimal 8 karakter"),
+  confirm_password: z
+    .string()
+    .min(8, "Password minimal 8 karakter")
+    .max(50, "Password maksimal 8 karakter"),
   role: z.enum([ROLES.ADMIN, ROLES.SPPG, ROLES.MITRA]),
 });
 

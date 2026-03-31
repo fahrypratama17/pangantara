@@ -1,62 +1,37 @@
+import { ProxyContext, ProxyFunction } from "@/shared/types/proxy";
 import { NextRequest, NextResponse } from "next/server";
-import { getIronSession } from "iron-session";
-import { SessionData, sessionOptions } from "@/shared/lib/auth/session";
-import { ROLE_REDIRECT } from "@/shared/lib/auth/role";
+import { getSession } from "@/shared/repository/session-manager/action";
+import { authGuard } from "@/middlewares/auth-guard";
+import { redirectRules } from "@/middlewares/redirect-rules";
+import { roleBasedAccess } from "@/middlewares/role-access";
 
-const PUBLIC_ROUTES = [
-  "/login",
-  "/register",
-  "/forgot-password",
-  "/reset-password",
-];
+export const PROTECTED_ROUTES = ["/supplier", "/mitra", "/admin"];
 
-const PROTECTED_ROUTES: Record<string, string[]> = {
-  "/admin": ["admin"],
-  "/dashboard/supplier": ["supplier"],
-  "/admin/mitra": ["sppg"],
-};
-
-export async function proxy(req: NextRequest) {
-  const res = NextResponse.next();
-  const { pathname } = req.nextUrl;
-
-  const session = await getIronSession<SessionData>(req, res, sessionOptions);
-
-  const isPublicRoute = PUBLIC_ROUTES.some((r) => pathname.startsWith(r));
-
-  if (!session.isLoggedIn || !session.user) {
-    if (!isPublicRoute) {
-      return NextResponse.redirect(new URL("/login", req.url));
-    }
-    return res;
-  }
-
-  if (isPublicRoute) {
-    const redirectTo = ROLE_REDIRECT[session.user.role] ?? "/";
-    return NextResponse.redirect(new URL(redirectTo, req.url));
-  }
-
-  const matchedRoute = Object.keys(PROTECTED_ROUTES).find((r) =>
-    pathname.startsWith(r),
-  );
-
-  if (matchedRoute) {
-    const allowedRoles = PROTECTED_ROUTES[matchedRoute];
-    if (!allowedRoles.includes(session.user.role)) {
-      const redirectTo = ROLE_REDIRECT[session.user.role] ?? "/dashboard";
-      return NextResponse.redirect(new URL(redirectTo, req.url));
-    }
-  }
-
-  return res;
-}
+export const ROUTE_REDIRECTS = {
+  "/admin": "/admin/dashboard",
+  "/mitra": "/mitra/dashboard",
+  "/supplier": "/sppg/cari-supplier",
+} as const;
 
 export const config = {
-  matcher: [
-    "/dashboard/:path*",
-    "/login",
-    "/register",
-    "/forgot-password",
-    "/reset-password",
-  ],
+  matcher: ["/sppg/:path*", "/mitra/:path*", "/admin/:path*"],
 };
+
+async function runProxy(
+  req: NextRequest,
+  proxies: ProxyFunction[],
+): Promise<NextResponse> {
+  const session = await getSession();
+  const context: ProxyContext = { req, session };
+
+  for (const proxy of proxies) {
+    const result = await proxy(context);
+    if (result) return result;
+  }
+
+  return NextResponse.next();
+}
+
+export async function proxy(req: NextRequest) {
+  return runProxy(req, [authGuard, redirectRules, roleBasedAccess]);
+}

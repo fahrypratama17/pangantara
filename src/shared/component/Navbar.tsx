@@ -10,11 +10,11 @@ const NavLink = [
   { name: "Beranda", href: "/#beranda", path: "/" },
   {
     name: "Cari Supplier",
-    href: "/supplier/cari-supplier",
-    path: "/supplier/cari-supplier",
+    href: "/sppg/cari-supplier",
+    path: "/sppg/cari-supplier",
   },
   { name: "FAQ", href: "/FAQ", path: "/FAQ" },
-  { name: "Hubungi", href: "/supplier/hubungi", path: "/supplier/hubungi" },
+  { name: "Hubungi", href: "/sppg/hubungi", path: "/sppg/hubungi" },
 ];
 
 const Navbar = () => {

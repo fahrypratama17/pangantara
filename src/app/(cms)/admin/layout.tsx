@@ -15,7 +15,6 @@ export default function Layout({
       <SidebarProvider>
         <div className="flex min-h-screen w-full">
           <SidebarCMS />
-
           <SidebarInset>
             <main className="h-full pt-20 md:pt-0">{children}</main>
           </SidebarInset>

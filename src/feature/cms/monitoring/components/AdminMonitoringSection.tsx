@@ -6,7 +6,6 @@ import { Input } from "@/shared/component/ui/input";
 import MonitoringTable from "@/feature/cms/monitoring/components/MonitoringTable";
 import { orders } from "@/feature/cms/monitoring/data/data";
 import {
-  ArrowRight,
   ChevronDown,
   ChevronLeft,
   ChevronRight,
@@ -21,7 +20,6 @@ import {
   DropdownMenuTrigger,
 } from "@/shared/component/ui/dropdown-menu";
 import { Button } from "@/shared/component/ui/button";
-import Link from "next/link";
 import MonitoringCardMobile from "@/feature/cms/monitoring/components/MonitoringCardMobile";
 
 const cardData = [
@@ -100,16 +98,8 @@ const AdminMonitoringSection = () => {
                 <h2 className="text-[12px] font-bold text-green-50">
                   Pesanan Terbaru
                 </h2>
-                <p className="text-[8px] font-semibold text-green-100">
-                  5 pesanan terakhir di platform
-                </p>
               </div>
             </div>
-            <Link href="/admin/monitoring">
-              <Button className="h-6 cursor-pointer bg-white text-[10px] font-bold text-green-500 hover:scale-105">
-                Lihat semua <ArrowRight />
-              </Button>
-            </Link>
           </div>
         </div>
         <div className="grid w-full grid-cols-[2fr_0.6fr] gap-3 md:gap-6">

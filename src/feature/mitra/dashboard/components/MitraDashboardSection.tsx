@@ -1,5 +1,3 @@
-"use client";
-
 import { Store, Banknote, ShoppingCart, ArrowRight } from "lucide-react";
 import CardProductActive from "@/feature/mitra/dashboard/components/CardProductActive";
 import MitraTable from "@/feature/mitra/dashboard/components/MitraTable";
@@ -8,8 +6,6 @@ import CardIncome from "@/feature/mitra/dashboard/components/CardIncome";
 import CardNew from "@/feature/mitra/dashboard/components/CardNew";
 import Link from "next/link";
 import { Button } from "@/shared/component/ui/button";
-import { useState } from "react";
-import { verif } from "@/feature/cms/verifikasi/data/data";
 import DashboardCardMobile from "@/feature/mitra/dashboard/components/DashboardCardMobile";
 
 const cardProductData = [
@@ -35,17 +31,6 @@ const cardNewData = [
 ];
 
 const MitraDashboardSection = () => {
-  const ITEMS_PER_PAGE = 6;
-
-  const [currentPage, setCurrentPage] = useState(1);
-
-  const totalPages = Math.ceil(verif.length / ITEMS_PER_PAGE);
-
-  const paginatedData = verif.slice(
-    (currentPage - 1) * ITEMS_PER_PAGE,
-    currentPage * ITEMS_PER_PAGE,
-  );
-
   return (
     <section>
       <div className="shadow-[0_4px_2px_#0000000A]">

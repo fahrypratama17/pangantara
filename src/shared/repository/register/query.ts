@@ -1,21 +1,28 @@
-import { env } from "@/shared/lib/env";
-import type { RegisterRequest, RegisterResponse } from "./dto";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { useRouter } from "next/navigation";
+import { createSession } from "@/shared/repository/session-manager/action";
+import { register } from "@/shared/repository/register/action";
+import { getRoleRedirectPath } from "@/shared/lib/role-redirect";
+import type { TRegisterRequest } from "@/feature/auth/register/types/schema";
 
-export async function register(
-  payload: RegisterRequest,
-): Promise<RegisterResponse> {
-  const res = await fetch(`${env.API_URL}/auth/register`, {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify(payload),
-    cache: "no-store",
+const queryKey = {
+  register: ["auth-session"],
+};
+
+export const useRegisterMutation = () => {
+  const queryClient = useQueryClient();
+  const router = useRouter();
+
+  return useMutation({
+    mutationKey: queryKey.register,
+    mutationFn: (data: TRegisterRequest) => register(data),
+    onSuccess: async (res) => {
+      if (!res.success) {
+        return;
+      }
+      await createSession(res.data.access_token);
+      router.push(getRoleRedirectPath(res.data.user.data.role));
+      queryClient.refetchQueries({ queryKey: queryKey.register });
+    },
   });
-
-  const data = (await res.json()) as RegisterResponse;
-
-  if (!res.ok || !data.success) {
-    throw new Error(data.message ?? "Register gagal");
-  }
-
-  return data;
-}
+};

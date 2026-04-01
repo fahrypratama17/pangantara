@@ -1,13 +1,13 @@
 import type { Roles } from "@/shared/lib/auth/role";
 
-export interface RegisterRequest {
+export interface IRegisterRequest {
   name: string;
   email: string;
   password: string;
   role: Roles;
 }
 
-export interface RegisterResponse {
+export interface IRegisterResponse {
   success: boolean;
   message: string;
   data: {

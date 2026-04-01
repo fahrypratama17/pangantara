@@ -1,11 +1,11 @@
 import type { Roles } from "@/shared/lib/auth/role";
 
-export interface LoginRequest {
+export interface ILoginRequest {
   email: string;
   password: string;
 }
 
-export interface LoginResponse {
+export interface ILoginResponse {
   success: boolean;
   message: string;
   access_token: string;

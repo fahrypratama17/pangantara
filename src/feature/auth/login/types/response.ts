@@ -1,6 +1,6 @@
-import type { User } from "@/shared/types/user";
+import { ILoginResponse } from "@/shared/repository/login/dto";
 
 export type LoginResponse = {
   access_token: string;
-  user: User;
+  user: ILoginResponse;
 };

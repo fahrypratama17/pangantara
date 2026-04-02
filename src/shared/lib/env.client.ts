@@ -24,6 +24,11 @@ export function getClientEnv() {
   return cached;
 }
 
-export const envClient = getClientEnv();
+// Lazy access prevents import-time throws during build phases that don't use env directly.
+export const envClient = new Proxy({} as z.infer<typeof envClientSchema>, {
+  get(_target, prop) {
+    return getClientEnv()[prop as keyof z.infer<typeof envClientSchema>];
+  },
+});
 export type TClientEnv = z.infer<typeof envClientSchema>;
 

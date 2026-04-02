@@ -27,6 +27,11 @@ export function getServerEnv() {
   return cached;
 }
 
-export const envServer = getServerEnv();
+// Lazy access keeps strict validation but avoids failing merely by importing this module.
+export const envServer = new Proxy({} as z.infer<typeof envServerSchema>, {
+  get(_target, prop) {
+    return getServerEnv()[prop as keyof z.infer<typeof envServerSchema>];
+  },
+});
 export type TServerEnv = z.infer<typeof envServerSchema>;
 

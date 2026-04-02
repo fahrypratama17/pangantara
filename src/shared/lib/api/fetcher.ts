@@ -25,7 +25,7 @@ export async function apiFetch<T>({
     "Content-Type": "application/json",
   };
 
-  if (session) {
+  if (session?.access_token) {
     defaultHeaders.Authorization = `Bearer ${session.access_token}`;
   }
 

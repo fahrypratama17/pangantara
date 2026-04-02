@@ -4,9 +4,10 @@ import { getIronSession, type IronSession } from "iron-session";
 import { cookies } from "next/headers";
 import {
   defaultSession,
+  getSessionOptions,
+  hasSessionSecret,
   Max_Age,
   SessionData,
-  sessionOptions,
 } from "@/shared/lib/auth/session";
 import { decodeToken, isTokenExpiringSoon } from "@/shared/lib/auth/decode";
 import { requestTokenRefresh } from "@/shared/repository/session-manager/refresh-api";
@@ -57,9 +58,10 @@ async function refreshAccessTokenIfNeeded(session: IronSession<SessionData>) {
 }
 
 async function _getSession() {
+  const options = getSessionOptions();
   const session = await getIronSession<SessionData>(
     await cookies(),
-    sessionOptions,
+    options,
   );
 
   if (session.expiresAt && session.expiresAt < Date.now()) {
@@ -122,6 +124,10 @@ export async function destroySession() {
 }
 
 export async function getSession(): Promise<IronSession<SessionData>> {
+  if (!hasSessionSecret()) {
+    return JSON.parse(JSON.stringify(defaultSession));
+  }
+
   const session = await _getSession();
   return JSON.parse(JSON.stringify(session));
 }
@@ -129,6 +135,10 @@ export async function getSession(): Promise<IronSession<SessionData>> {
 export async function getSessionWithAutoRefresh(): Promise<
   IronSession<SessionData>
 > {
+  if (!hasSessionSecret()) {
+    return JSON.parse(JSON.stringify(defaultSession));
+  }
+
   const session = await _getSession();
   await refreshAccessTokenIfNeeded(session);
   return JSON.parse(JSON.stringify(session));

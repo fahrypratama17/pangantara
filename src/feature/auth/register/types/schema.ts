@@ -3,6 +3,7 @@ import { Roles } from "@/shared/lib/auth/role";
 
 export const registerSchema = z.object({
   name: z.string().min(2, "Minimal 2 karakter"),
+  address: z.string().min(1, "Masukkan alamat Anda!"),
   email: z
     .string()
     .min(1, "Masukkan email Anda!")

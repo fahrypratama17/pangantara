@@ -5,6 +5,8 @@ import { useRouter } from "next/navigation";
 import { showRegisterRequiredToast } from "@/shared/component/toast";
 import { useRegisterStore } from "@/shared/store/useRegisterStore";
 
+const EMAIL_REGEX = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
 const SPPGField = () => {
   const router = useRouter();
   const { name, email, address, setField } = useRegisterStore();
@@ -22,6 +24,11 @@ const SPPGField = () => {
 
     if (!email.trim()) {
       showRegisterRequiredToast("emailRequired");
+      return;
+    }
+
+    if (!EMAIL_REGEX.test(email.trim())) {
+      showRegisterRequiredToast("emailInvalid");
       return;
     }
 

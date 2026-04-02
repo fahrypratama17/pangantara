@@ -9,6 +9,7 @@ export interface SessionData {
     user_id: string;
     name: string;
     email: string;
+    address?: string;
     role: Roles;
   };
   access_token?: string;

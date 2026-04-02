@@ -2,7 +2,11 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useRouter } from "next/navigation";
 import { TLoginRequest } from "@/feature/auth/login/types/schema";
 import { createSession } from "@/shared/repository/session-manager/action";
-import { login, logout } from "@/shared/repository/login/action";
+import {
+  getProfileAfterLogin,
+  login,
+  logout,
+} from "@/shared/repository/login/action";
 import { getRoleRedirectPath } from "@/shared/lib/role-redirect";
 import { toast } from "sonner";
 
@@ -43,16 +47,22 @@ export const useLoginMutation = () => {
         return;
       }
 
+      const profileUser = await getProfileAfterLogin(accessToken, user.user_id);
+      const sessionUser = {
+        ...user,
+        ...(profileUser ?? {}),
+      };
+
       await createSession({
         token: accessToken,
-        user,
+        user: sessionUser,
         refreshToken,
         isLoggedIn: true,
       });
       toast.success("Berhasil login", {
-        description: `Selamat datang ${user.name}!`,
+        description: `Selamat datang ${sessionUser.name}!`,
       });
-      router.push(getRoleRedirectPath(user.role));
+      router.push(getRoleRedirectPath(sessionUser.role));
       queryClient.refetchQueries({ queryKey: queryKey.login });
     },
     onError: (error) => {
@@ -75,7 +85,14 @@ export const useLogoutMutation = () => {
     mutationFn: () => logout(),
     onSuccess: () => {
       router.replace("/");
+      router.refresh();
       queryClient.resetQueries({ queryKey: queryKey.login });
+    },
+    onError: (error) => {
+      toast.error("Gagal logout", {
+        description:
+          error instanceof Error ? error.message : "Terjadi kesalahan saat logout",
+      });
     },
   });
 };

@@ -12,6 +12,7 @@ export const useRegisterForm = () => {
 
     mutate({
       name: state.name,
+      address: state.address,
       email: state.email,
       password: state.password,
       confirm_password: state.confirmPassword,

@@ -9,6 +9,7 @@ export interface ILoginUser {
   user_id: string;
   name: string;
   email: string;
+  address?: string;
   role: Roles;
 }
 

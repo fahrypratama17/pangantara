@@ -19,7 +19,8 @@ export type PasswordToastKey =
 export type RegisterRequiredToastKey =
   | "nameRequired"
   | "addressRequired"
-  | "emailRequired";
+  | "emailRequired"
+  | "emailInvalid";
 
 export type LoginToastKey =
   | "loginEmailRequired"
@@ -88,6 +89,12 @@ const registerRequiredToastMap: Record<RegisterRequiredToastKey, ToastConfig> =
       id: "register-email-required",
       title: "Email Tidak Boleh Kosong!",
       description: "Masukkan email terlebih dahulu.",
+    },
+    emailInvalid: {
+      type: "warning",
+      id: "register-email-invalid",
+      title: "Format email tidak valid",
+      description: "Pastikan format email sudah benar.",
     },
   };
 
@@ -215,3 +222,36 @@ export function showResetPasswordToast(
   });
 }
 
+function isValidEmail(email: string) {
+  // Cukup ketat untuk validasi form client-side umum.
+  return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+}
+
+export function showEmailValidationToast(
+  email: string,
+  source: "login" | "register" = "login",
+) {
+  const trimmedEmail = email.trim();
+
+  if (!trimmedEmail) {
+    if (source === "register") {
+      showRegisterRequiredToast("emailRequired");
+      return false;
+    }
+
+    showLoginToast("loginEmailRequired");
+    return false;
+  }
+
+  if (!isValidEmail(trimmedEmail)) {
+    if (source === "register") {
+      showRegisterRequiredToast("emailInvalid");
+      return false;
+    }
+
+    showLoginToast("loginEmailInvalid");
+    return false;
+  }
+
+  return true;
+}

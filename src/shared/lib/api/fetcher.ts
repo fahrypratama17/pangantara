@@ -1,5 +1,5 @@
 import { processResponse } from "@/shared/lib/api/response";
-import { getSession } from "@/shared/repository/session-manager/action";
+import { getSessionWithAutoRefresh } from "@/shared/repository/session-manager/action";
 import type { ApiResponse } from "@/shared/types/api/API-response";
 import type { TAPIQuery } from "@/shared/types/api/TAPI-query";
 import { appendQueryParams } from "../query-params";
@@ -19,7 +19,7 @@ export async function apiFetch<T>({
   errorMessage?: string;
   successMessage?: string;
 }): Promise<ApiResponse<T>> {
-  const session = await getSession();
+  const session = await getSessionWithAutoRefresh();
   const defaultHeaders: Record<string, string> = {
     Accept: "application/json",
     "Content-Type": "application/json",

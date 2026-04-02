@@ -24,3 +24,25 @@ interface TokenPayload {
 export function decodeToken(token: string): TokenPayload {
   return jose.decodeJwt(token);
 }
+
+export function getTokenRemainingMs(token: string): number | null {
+  try {
+    const decoded = decodeToken(token);
+    return decoded.exp * 1000 - Date.now();
+  } catch {
+    return null;
+  }
+}
+
+export function isTokenExpiringSoon(
+  token: string,
+  thresholdMs: number,
+): boolean {
+  const remainingMs = getTokenRemainingMs(token);
+  if (remainingMs === null) {
+    return false;
+  }
+
+  return remainingMs <= thresholdMs;
+}
+

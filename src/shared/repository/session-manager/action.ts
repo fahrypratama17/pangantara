@@ -8,7 +8,53 @@ import {
   SessionData,
   sessionOptions,
 } from "@/shared/lib/auth/session";
-import { decodeToken } from "@/shared/lib/auth/decode";
+import { decodeToken, isTokenExpiringSoon } from "@/shared/lib/auth/decode";
+import { requestTokenRefresh } from "@/shared/repository/session-manager/refresh-api";
+
+const REFRESH_THRESHOLD_MS = 15 * 60 * 1000;
+
+async function refreshAccessTokenIfNeeded(session: IronSession<SessionData>) {
+  const accessToken = session.access_token;
+  const refreshToken = session.refresh_token;
+
+  if (!accessToken || !refreshToken) {
+    return;
+  }
+
+  if (!isTokenExpiringSoon(accessToken, REFRESH_THRESHOLD_MS)) {
+    return;
+  }
+
+  try {
+    const refreshResult = await requestTokenRefresh(refreshToken);
+    if (!refreshResult) {
+      return;
+    }
+
+    if (refreshResult.status === 401) {
+      session.destroy();
+      return;
+    }
+
+    if (!refreshResult.ok) {
+      return;
+    }
+
+    const payload = refreshResult.data;
+
+    if (!payload?.success || !payload.access_token) {
+      return;
+    }
+
+    session.access_token = payload.access_token;
+    session.refresh_token = payload.refresh_token || refreshToken;
+    session.isLoggedIn = true;
+    session.expiresAt = Date.now() + Max_Age;
+    await session.save();
+  } catch {
+    // Keep current session; request can still continue with existing token.
+  }
+}
 
 async function _getSession() {
   const session = await getIronSession<SessionData>(
@@ -79,3 +125,12 @@ export async function getSession(): Promise<IronSession<SessionData>> {
   const session = await _getSession();
   return JSON.parse(JSON.stringify(session));
 }
+
+export async function getSessionWithAutoRefresh(): Promise<
+  IronSession<SessionData>
+> {
+  const session = await _getSession();
+  await refreshAccessTokenIfNeeded(session);
+  return JSON.parse(JSON.stringify(session));
+}
+

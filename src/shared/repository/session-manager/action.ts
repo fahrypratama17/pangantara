@@ -30,13 +30,41 @@ async function _getSession() {
   return session;
 }
 
-export async function createSession(token: string) {
+type CreateSessionInput = {
+  token: string;
+  user?: SessionData["user"];
+  refreshToken?: string;
+  isLoggedIn?: boolean;
+};
+
+export async function createSession(input: string | CreateSessionInput) {
   const session = await _getSession();
-  const decode = decodeToken(token);
+
+  const token = typeof input === "string" ? input : input.token;
+  const fallbackUser = typeof input === "string" ? undefined : input.user;
+  const fallbackRefreshToken =
+    typeof input === "string" ? undefined : input.refreshToken;
+  const fallbackIsLoggedIn =
+    typeof input === "string" ? undefined : input.isLoggedIn;
+
+  let decodedUser: SessionData["user"] | undefined;
+  let decodedRefreshToken: string | undefined;
+  let decodedIsLoggedIn: boolean | undefined;
+
+  try {
+    const decoded = decodeToken(token);
+    decodedUser = decoded.user?.user;
+    decodedRefreshToken = decoded.user?.refresh_token;
+    decodedIsLoggedIn = decoded.user?.isLoggedIn;
+  } catch {
+    // Some providers don't embed user claims in JWT; use explicit fallback payload.
+  }
+
   session.access_token = token;
-  session.user = decode.user.user;
-  session.refresh_token = decode.user.refresh_token;
-  session.isLoggedIn = decode.user.isLoggedIn;
+  session.user = fallbackUser ?? decodedUser;
+  session.refresh_token = fallbackRefreshToken ?? decodedRefreshToken;
+  session.isLoggedIn =
+    fallbackIsLoggedIn ?? decodedIsLoggedIn ?? Boolean(session.access_token);
   session.expiresAt = Date.now() + Max_Age;
 
   await session.save();

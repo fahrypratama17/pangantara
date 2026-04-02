@@ -1,3 +1,5 @@
+"use client";
+
 import { useState } from "react";
 import { useFormStore } from "@/shared/store/useFormStore";
 import {

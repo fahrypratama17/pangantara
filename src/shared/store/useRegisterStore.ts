@@ -1,15 +1,20 @@
 import { create } from "zustand";
 import { Roles } from "@/shared/lib/auth/role";
 
-type RegisterState = {
+type RegisterFields = {
   name: string;
   email: string;
   address: string;
   password: string;
   confirmPassword: string;
   role: Roles;
+};
 
-  setField: (field: keyof RegisterState, value: string) => void;
+type RegisterState = RegisterFields & {
+  setField: <K extends keyof RegisterFields>(
+    field: K,
+    value: RegisterFields[K],
+  ) => void;
   reset: () => void;
 };
 

@@ -1,5 +1,4 @@
 import { notFound } from "next/navigation";
-import { logout } from "@/shared/repository/login/action";
 import type { ApiResponse } from "@/shared/types/api/API-response";
 
 export async function processResponse<T>(
@@ -8,9 +7,6 @@ export async function processResponse<T>(
   successMessage: string,
 ): Promise<ApiResponse<T>> {
   if (!response.ok) {
-    if ([401, 403, 307].includes(response.status)) {
-      logout();
-    }
     if (response.status === 404) {
       notFound();
     }

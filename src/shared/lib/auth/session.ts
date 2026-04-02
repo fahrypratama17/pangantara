@@ -1,5 +1,5 @@
 import type { Roles } from "@/shared/lib/auth/role";
-import { env } from "@/shared/lib/env";
+import { envServer } from "@/shared/lib/env.server";
 import type { SessionOptions } from "iron-session";
 
 export const Max_Age: number = 60 * 60 * 24 * 1000;
@@ -18,11 +18,11 @@ export interface SessionData {
 }
 
 export const sessionOptions: SessionOptions = {
-  password: env.SESSION_SECRET,
+  password: envServer.SESSION_SECRET,
   cookieName: "pangantara-session",
   cookieOptions: {
     maxAge: Max_Age - 60 * 1000,
-    secure: true,
+    secure: process.env.NODE_ENV === "production",
   },
 };
 

@@ -7,6 +7,7 @@ import { useState, useEffect } from "react";
 import { useIsMobile } from "@/hooks/use-mobile";
 import { useLogoutMutation } from "@/shared/repository/login/query";
 import { Roles } from "@/shared/lib/auth/role";
+import { ChevronDown, ChevronUp, LogOut } from "lucide-react";
 
 type NavbarAuthUser = {
   isLoggedIn?: boolean;
@@ -125,9 +126,14 @@ const Navbar = ({ authUser }: NavbarProps) => {
                 <button
                   type="button"
                   onClick={() => setIsAccountMenuOpen((prev) => !prev)}
-                  className="text-lg-bold rounded-[24px] border-3 border-orange-600 px-6 py-1.25 text-orange-900"
+                  className="text-lg-bold flex cursor-pointer items-center gap-4 rounded-[24px] px-6 py-1.25 text-orange-900"
                 >
-                  {displayName}
+                  <p>{displayName}</p>
+                  <ChevronDown
+                    className={`transition-transform duration-500 ${
+                      isAccountMenuOpen ? "rotate-180" : "rotate-0"
+                    }`}
+                  />
                 </button>
 
                 {isAccountMenuOpen && (
@@ -145,9 +151,15 @@ const Navbar = ({ authUser }: NavbarProps) => {
                         logout();
                       }}
                       disabled={isLogoutPending}
-                      className="w-full rounded-b-2xl px-4 py-3 text-left text-sm font-semibold text-green-900 transition hover:bg-[#E5DDCC] disabled:cursor-not-allowed disabled:opacity-60"
+                      className="w-full cursor-pointer rounded-b-2xl px-4 py-3 text-left text-sm font-semibold text-green-900 transition hover:bg-[#E5DDCC] disabled:cursor-not-allowed disabled:opacity-60"
                     >
-                      {isLogoutPending ? "Memproses..." : "Keluar"}
+                      {isLogoutPending ? (
+                        "Memproses..."
+                      ) : (
+                        <div className="flex items-center gap-2">
+                          <LogOut className="p-1" /> <p>Keluar</p>
+                        </div>
+                      )}
                     </button>
                   </div>
                 )}

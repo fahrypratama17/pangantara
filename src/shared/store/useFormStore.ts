@@ -1,5 +1,12 @@
 import { create } from "zustand";
 
+type Identitas = {
+  nama: string;
+  pemilik: string;
+  alamat: string;
+  telepon: string;
+};
+
 type Answers = {
   daging?: {
     jenisDaging?: "ayam" | "sapi" | "ikan";
@@ -46,11 +53,17 @@ type Answers = {
 type FormStore = {
   step: number;
   category: string | null;
+  identitas: Identitas;
   answers: Answers;
   isQuestionOpen: boolean;
 
   setStep: (step: number) => void;
   setCategory: (category: string) => void;
+  setIdentitasField: <K extends keyof Identitas>(
+    field: K,
+    value: Identitas[K],
+  ) => void;
+  resetIdentitas: () => void;
   resetAnswers: () => void;
   setAnswers: <
     C extends keyof Answers,
@@ -65,6 +78,12 @@ type FormStore = {
 export const useFormStore = create<FormStore>((set) => ({
   step: 1,
   category: null,
+  identitas: {
+    nama: "",
+    pemilik: "",
+    alamat: "",
+    telepon: "",
+  },
   answers: {},
   isQuestionOpen: false,
 
@@ -72,6 +91,18 @@ export const useFormStore = create<FormStore>((set) => ({
 
   setCategory: (category) =>
     set({ category, answers: {}, isQuestionOpen: true }),
+
+  setIdentitasField: (field, value) =>
+    set((state) => ({
+      identitas: {
+        ...state.identitas,
+        [field]: value,
+      },
+    })),
+
+  resetIdentitas: () =>
+    set({ identitas: { nama: "", pemilik: "", alamat: "", telepon: "" } }),
+
   resetAnswers: () => set({ answers: {} }),
 
   setAnswers: (category, key, value) =>

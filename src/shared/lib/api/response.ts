@@ -1,4 +1,3 @@
-import { notFound } from "next/navigation";
 import type { ApiResponse } from "@/shared/types/api/API-response";
 
 export async function processResponse<T>(
@@ -7,10 +6,6 @@ export async function processResponse<T>(
   successMessage: string,
 ): Promise<ApiResponse<T>> {
   if (!response.ok) {
-    if (response.status === 404) {
-      notFound();
-    }
-
     const message = await handleErrorResponse(response, errorMessage);
     return {
       success: false,
@@ -56,7 +51,13 @@ async function handleErrorResponse(
       " - errorData: ",
       JSON.stringify(errorData),
     );
-    return errorData?.payload?.error;
+    return (
+      errorData?.payload?.error ??
+      errorData?.error ??
+      errorData?.message ??
+      response.statusText ??
+      defaultError
+    );
   } catch {
     return response.statusText || defaultError;
   }
@@ -65,7 +66,7 @@ async function handleErrorResponse(
 async function parseJSON<T>(response: Response): Promise<T> {
   try {
     const data = await response.json();
-    return data.payload;
+    return (data?.payload ?? data) as T;
   } catch (error) {
     throw new Error(
       `Invalid JSON response: ${error instanceof Error ? error.message : "Unknown parsing error"}`,

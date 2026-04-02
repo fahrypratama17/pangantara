@@ -33,13 +33,13 @@ export async function apiFetch<T>({
     defaultHeaders["Content-Type"] = "multipart/form-data";
   }
 
-  const _url = new URL(url);
-
-  if (query) {
-    appendQueryParams(_url, query);
-  }
-
   try {
+    const _url = new URL(url);
+
+    if (query) {
+      appendQueryParams(_url, query);
+    }
+
     const response = await fetch(_url.toString(), {
       ...options,
       headers: {

@@ -8,15 +8,17 @@ export interface IRegisterRequest {
   role: Roles;
 }
 
+export interface IRegisterUser {
+  user_id: string;
+  name: string;
+  email: string;
+  role: Roles;
+  created_at: string;
+  updated_at: string;
+}
+
 export interface IRegisterResponse {
-  access_token: string;
-  refresh_token?: string;
-  user: {
-    user_id: string;
-    name: string;
-    email: string;
-    role: Roles;
-    created_at: string;
-    updated_at: string;
-  };
+  success: boolean;
+  message: string;
+  data: IRegisterUser;
 }

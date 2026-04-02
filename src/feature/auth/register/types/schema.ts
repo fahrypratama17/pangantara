@@ -18,11 +18,11 @@ export const registerSchema = z.object({
   password: z
     .string()
     .min(8, "Password minimal 8 karakter")
-    .max(50, "Password maksimal 8 karakter"),
+    .max(50, "Password maksimal 50 karakter"),
   confirm_password: z
     .string()
     .min(8, "Password minimal 8 karakter")
-    .max(50, "Password maksimal 8 karakter"),
+    .max(50, "Password maksimal 50 karakter"),
   role: z.enum([Roles.admin, Roles.sppg, Roles.supplier]),
 });
 

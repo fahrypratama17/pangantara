@@ -1,11 +1,33 @@
 import { Field } from "@/shared/component/ui/field";
 import { FormInput } from "@/shared/component/auth/FormInput";
 import { ArrowRight, Mail, MapPin, Package } from "lucide-react";
-import Link from "next/link";
+import { useRouter } from "next/navigation";
+import { showRegisterRequiredToast } from "@/shared/component/toast";
 import { useRegisterStore } from "@/shared/store/useRegisterStore";
 
 const SPPGField = () => {
+  const router = useRouter();
   const { name, email, address, setField } = useRegisterStore();
+
+  const onContinue = () => {
+    if (!name.trim()) {
+      showRegisterRequiredToast("nameRequired");
+      return;
+    }
+
+    if (!address.trim()) {
+      showRegisterRequiredToast("addressRequired");
+      return;
+    }
+
+    if (!email.trim()) {
+      showRegisterRequiredToast("emailRequired");
+      return;
+    }
+
+    router.push("/password");
+  };
+
   return (
     <Field className="mx-auto w-full">
       <div className="space-y-4 md:mb-9">
@@ -36,16 +58,18 @@ const SPPGField = () => {
         <p className="text-end text-[8px] font-bold text-green-900 md:text-sm">
           Lanjutkan
         </p>
-        <Link
-          href="/password"
+        <button
+          type="button"
+          onClick={onContinue}
           className="rounded-full border bg-green-700 p-1 text-orange-400 md:p-2"
+          aria-label="Lanjutkan ke form password"
         >
           <ArrowRight
             width={20}
             height={20}
             className="h-3 w-3 md:h-5 md:w-5"
           />
-        </Link>
+        </button>
       </div>
     </Field>
   );

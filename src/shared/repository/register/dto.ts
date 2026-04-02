@@ -4,13 +4,14 @@ export interface IRegisterRequest {
   name: string;
   email: string;
   password: string;
+  confirm_password: string;
   role: Roles;
 }
 
 export interface IRegisterResponse {
-  success: boolean;
-  message: string;
-  data: {
+  access_token: string;
+  refresh_token?: string;
+  user: {
     user_id: string;
     name: string;
     email: string;

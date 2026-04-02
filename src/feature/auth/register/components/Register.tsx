@@ -11,6 +11,7 @@ import {
 import SPPGField from "@/feature/auth/register/components/SPPGField";
 import MitraField from "@/feature/auth/register/components/MitraField";
 import { useRegisterStore } from "@/shared/store/useRegisterStore";
+import { Roles } from "@/shared/lib/auth/role";
 
 type TabType = "sppg" | "mitra";
 type Props = { type: TabType; onChangeTab: (val: TabType) => void };
@@ -40,7 +41,7 @@ const Register = ({ type, onChangeTab }: Props) => {
           value={type}
           onValueChange={(val) => {
             onChangeTab(val as TabType);
-            setField("role", val === "sppg" ? "sppg" : "supplier");
+            setField("role", val === "sppg" ? Roles.sppg : Roles.supplier);
           }}
           className="mx-auto w-[80%]"
         >

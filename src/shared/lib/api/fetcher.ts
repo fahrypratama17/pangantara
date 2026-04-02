@@ -2,7 +2,6 @@ import { processResponse } from "@/shared/lib/api/response";
 import { getSession } from "@/shared/repository/session-manager/action";
 import type { ApiResponse } from "@/shared/types/api/API-response";
 import type { TAPIQuery } from "@/shared/types/api/TAPI-query";
-import { env } from "../env";
 import { appendQueryParams } from "../query-params";
 
 export async function apiFetch<T>({
@@ -24,7 +23,6 @@ export async function apiFetch<T>({
   const defaultHeaders: Record<string, string> = {
     Accept: "application/json",
     "Content-Type": "application/json",
-    "x-api-key": `Key ${env.API_URL}`,
   };
 
   if (session) {

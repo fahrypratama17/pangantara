@@ -1,6 +1,6 @@
 import { toast } from "sonner";
 
-type ToastType = "error" | "warning";
+type ToastType = "error" | "warning" | "success";
 
 type ToastConfig = {
   type: ToastType;
@@ -25,6 +25,16 @@ export type LoginToastKey =
   | "loginEmailRequired"
   | "loginEmailInvalid"
   | "loginPasswordRequired";
+
+export type ResetPasswordToastKey =
+  | "tokenRequired"
+  | "passwordRequired"
+  | "confirmPasswordRequired"
+  | "passwordMinLength"
+  | "passwordMaxLength"
+  | "passwordMismatch"
+  | "resetFailed"
+  | "resetSuccess";
 
 const passwordToastMap: Record<PasswordToastKey, ToastConfig> = {
   passwordRequired: {
@@ -102,7 +112,66 @@ const loginToastMap: Record<LoginToastKey, ToastConfig> = {
   },
 };
 
+const resetPasswordToastMap: Record<ResetPasswordToastKey, ToastConfig> = {
+  tokenRequired: {
+    type: "error",
+    id: "reset-password-token-required",
+    title: "Token tidak ditemukan",
+    description: "Gunakan link reset password yang valid.",
+  },
+  passwordRequired: {
+    type: "error",
+    id: "reset-password-required",
+    title: "Password Tidak Boleh Kosong!",
+    description: "Masukkan password baru terlebih dahulu.",
+  },
+  confirmPasswordRequired: {
+    type: "error",
+    id: "reset-confirm-password-required",
+    title: "Konfirmasi Password Tidak Boleh Kosong!",
+    description: "Masukkan konfirmasi password terlebih dahulu.",
+  },
+  passwordMinLength: {
+    type: "error",
+    id: "reset-password-min-length",
+    title: "Password terlalu pendek",
+    description: "Password minimal 8 karakter.",
+  },
+  passwordMaxLength: {
+    type: "warning",
+    id: "reset-password-max-length",
+    title: "Password terlalu panjang",
+    description: "Password maksimal 50 karakter.",
+  },
+  passwordMismatch: {
+    type: "error",
+    id: "reset-password-mismatch",
+    title: "Password Tidak Sama!",
+    description: "Pastikan konfirmasi kata sandi sesuai.",
+  },
+  resetFailed: {
+    type: "error",
+    id: "reset-password-failed",
+    title: "Gagal reset password",
+    description: "Silakan coba lagi dalam beberapa saat.",
+  },
+  resetSuccess: {
+    type: "success",
+    id: "reset-password-success",
+    title: "Reset password berhasil",
+    description: "Silakan login dengan password baru Anda.",
+  },
+};
+
 function showToast(config: ToastConfig) {
+  if (config.type === "success") {
+    toast.success(config.title, {
+      id: config.id,
+      description: config.description,
+    });
+    return;
+  }
+
   if (config.type === "warning") {
     toast.warning(config.title, {
       id: config.id,
@@ -128,3 +197,21 @@ export function showRegisterRequiredToast(key: RegisterRequiredToastKey) {
 export function showLoginToast(key: LoginToastKey) {
   showToast(loginToastMap[key]);
 }
+
+export function showResetPasswordToast(
+  key: ResetPasswordToastKey,
+  description?: string,
+) {
+  const config = resetPasswordToastMap[key];
+
+  if (!description || key !== "resetFailed") {
+    showToast(config);
+    return;
+  }
+
+  showToast({
+    ...config,
+    description,
+  });
+}
+

@@ -1,5 +1,5 @@
-import CariCategoryFilter from "@/feature/supplier/cari/components/CariCategoryFilter";
-import CariSupplierGrid from "@/feature/supplier/cari/components/CariSupplierGrid";
+import CariCategoryFilter from "@/feature/sppg/cari/components/CariCategoryFilter";
+import CariSupplierGrid from "@/feature/sppg/cari/components/CariSupplierGrid";
 
 const CariSection = () => {
   return (

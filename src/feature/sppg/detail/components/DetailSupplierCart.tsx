@@ -1,8 +1,8 @@
 "use client";
 
-import DaftarPesananCard from "@/feature/supplier/detail/components/DaftarPesananCard";
-import RincianPesananCard from "@/feature/supplier/detail/components/RincianPemesananCard";
-import { useDetailSupplierSectionContext } from "@/feature/supplier/detail/components/DetailSupplierSectionProvider";
+import DaftarPesananCard from "@/feature/sppg/detail/components/DaftarPesananCard";
+import RincianPesananCard from "@/feature/sppg/detail/components/RincianPemesananCard";
+import { useDetailSupplierSectionContext } from "@/feature/sppg/detail/components/DetailSupplierSectionProvider";
 
 const DetailSupplierCart = () => {
   const {

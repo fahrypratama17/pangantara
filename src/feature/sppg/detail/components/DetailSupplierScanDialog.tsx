@@ -1,12 +1,12 @@
 "use client";
 
-import ScanModal from "@/feature/supplier/cari/components/ScanModal";
+import ScanModal from "@/feature/sppg/cari/components/ScanModal";
 import {
   Dialog,
   DialogContent,
   DialogTitle,
 } from "@/shared/component/ui/dialog";
-import { useDetailSupplierSectionContext } from "@/feature/supplier/detail/components/DetailSupplierSectionProvider";
+import { useDetailSupplierSectionContext } from "@/feature/sppg/detail/components/DetailSupplierSectionProvider";
 
 const DetailSupplierScanDialog = () => {
   const { openScan, setOpenScan } = useDetailSupplierSectionContext();

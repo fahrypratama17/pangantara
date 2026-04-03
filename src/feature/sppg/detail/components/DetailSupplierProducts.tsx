@@ -1,10 +1,10 @@
 "use client";
 
-import DetailSearchBar from "@/feature/supplier/detail/components/DetailSearchBar";
-import DetailSupplierCard from "@/feature/supplier/detail/components/DetailSupplierCard";
-import DetailSupplierCardSkeleton from "@/feature/supplier/detail/components/DetailSupplierCardSkeleton";
+import DetailSearchBar from "@/feature/sppg/detail/components/DetailSearchBar";
+import DetailSupplierCard from "@/feature/sppg/detail/components/DetailSupplierCard";
+import DetailSupplierCardSkeleton from "@/feature/sppg/detail/components/DetailSupplierCardSkeleton";
 import { ScrollArea } from "@/shared/component/ui/scroll-area";
-import { useDetailSupplierSectionContext } from "@/feature/supplier/detail/components/DetailSupplierSectionProvider";
+import { useDetailSupplierSectionContext } from "@/feature/sppg/detail/components/DetailSupplierSectionProvider";
 
 const DetailSupplierProducts = () => {
   const {

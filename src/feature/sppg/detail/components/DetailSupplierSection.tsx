@@ -1,10 +1,10 @@
 import { ArrowLeft } from "lucide-react";
 import Link from "next/link";
-import DetailSupplierSectionProvider from "@/feature/supplier/detail/components/DetailSupplierSectionProvider";
-import DetailSupplierProducts from "@/feature/supplier/detail/components/DetailSupplierProducts";
-import DetailSupplierButton from "@/feature/supplier/detail/components/DetailSupplierButton";
-import DetailSupplierCart from "@/feature/supplier/detail/components/DetailSupplierCart";
-import DetailSupplierScanDialog from "@/feature/supplier/detail/components/DetailSupplierScanDialog";
+import DetailSupplierSectionProvider from "@/feature/sppg/detail/components/DetailSupplierSectionProvider";
+import DetailSupplierProducts from "@/feature/sppg/detail/components/DetailSupplierProducts";
+import DetailSupplierButton from "@/feature/sppg/detail/components/DetailSupplierButton";
+import DetailSupplierCart from "@/feature/sppg/detail/components/DetailSupplierCart";
+import DetailSupplierScanDialog from "@/feature/sppg/detail/components/DetailSupplierScanDialog";
 
 const DetailSupplierSection = () => {
   return (

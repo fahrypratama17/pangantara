@@ -3,9 +3,9 @@
 import { useEffect, useMemo, useState } from "react";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { ScrollArea } from "@/shared/component/ui/scroll-area";
-import { SupplierData } from "@/feature/supplier/cari/data/data";
-import CariCard from "@/feature/supplier/cari/components/CariCard";
-import CariCardSkeleton from "@/feature/supplier/cari/components/CariCardSkeleton";
+import { SupplierData } from "@/feature/sppg/cari/data/data";
+import CariCard from "@/feature/sppg/cari/components/CariCard";
+import CariCardSkeleton from "@/feature/sppg/cari/components/CariCardSkeleton";
 import { Button } from "@/shared/component/ui/button";
 import { ChevronDown } from "lucide-react";
 

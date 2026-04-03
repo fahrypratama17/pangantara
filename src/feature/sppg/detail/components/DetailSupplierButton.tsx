@@ -1,5 +1,5 @@
-import DetailSupplierToggleProducts from "@/feature/supplier/detail/components/DetailSupplierToggleProducts";
-import DetailSupplierOpenCart from "@/feature/supplier/detail/components/DetailSupplierOpenCart";
+import DetailSupplierToggleProducts from "@/feature/sppg/detail/components/DetailSupplierToggleProducts";
+import DetailSupplierOpenCart from "@/feature/sppg/detail/components/DetailSupplierOpenCart";
 
 const DetailSupplierButton = () => {
   return (

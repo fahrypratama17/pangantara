@@ -1,7 +1,7 @@
 "use client";
 
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
-import Kategori from "@/feature/supplier/cari/components/Kategori";
+import Kategori from "@/feature/sppg/cari/components/Kategori";
 
 const QUERY_KEY = "kategori";
 const SHOW_QUERY_KEY = "show";

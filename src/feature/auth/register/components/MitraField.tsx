@@ -68,7 +68,7 @@ const MitraField = () => {
         <button
           type="button"
           onClick={onContinue}
-          className="rounded-full border bg-green-700 p-1 text-orange-400 md:p-2"
+          className="cursor-pointer rounded-full border bg-green-700 p-1 text-orange-400 md:p-2"
           aria-label="Lanjutkan ke form password"
         >
           <ArrowRight

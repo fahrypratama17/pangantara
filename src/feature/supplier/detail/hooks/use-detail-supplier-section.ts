@@ -1,6 +1,6 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { cardDetailData } from "@/feature/supplier/detail/data/data";
 import type { cardType } from "@/feature/supplier/detail/types/type";
 
@@ -27,12 +27,18 @@ function formatToIdr(value: number) {
 }
 
 export function useDetailSupplierSection() {
+  const [isLoadingProducts, setIsLoadingProducts] = useState(true);
   const [showAllProducts, setShowAllProducts] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
   const [quantities, setQuantities] = useState<Record<number, number>>({});
   const [cartOpened, setCartOpened] = useState(false);
   const [openScan, setOpenScan] = useState(false);
   const [showAllOrderItems, setShowAllOrderItems] = useState(false);
+
+  useEffect(() => {
+    const timer = setTimeout(() => setIsLoadingProducts(false), 800);
+    return () => clearTimeout(timer);
+  }, []);
 
   const filteredProducts = useMemo(() => {
     const keyword = searchQuery.trim().toLowerCase();
@@ -92,6 +98,7 @@ export function useDetailSupplierSection() {
   const total = subtotal + shippingCost + tax;
 
   return {
+    isLoadingProducts,
     searchQuery,
     setSearchQuery,
     showAllProducts,

@@ -1,4 +1,4 @@
-import DetailSupplierContainer from "@/feature/supplier/detail/container/DetailSupplierContainer";
+import DetailSupplierContainer from "@/feature/sppg/detail/container/DetailSupplierContainer";
 
 export const metadata = {
   title: "SPPG - Detail Supplier",

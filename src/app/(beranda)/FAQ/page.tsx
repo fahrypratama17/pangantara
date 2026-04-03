@@ -1,4 +1,4 @@
-import PenggunaanContainer from "@/feature/supplier/penggunaan/container/PenggunaanContainer";
+import PenggunaanContainer from "@/feature/sppg/penggunaan/container/PenggunaanContainer";
 
 export const metadata = {
   title: "Pangantara - FAQ",

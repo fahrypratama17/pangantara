@@ -10,7 +10,8 @@ import { Button } from "@/shared/component/ui/button";
 import { FormInput } from "@/shared/component/auth/FormInput";
 import { showPasswordToast } from "@/shared/component/toast";
 import { useRegisterStore } from "@/shared/store/useRegisterStore";
-import { useDebounce, useRegisterForm } from "@/hooks";
+import { useDebounce } from "@/hooks/use-debounce";
+import { useRegisterForm } from "@/hooks/use-register-form";
 import { Spinner } from "@/shared/component/ui/spinner";
 import { Roles } from "@/shared/lib/auth/role";
 
@@ -146,8 +147,10 @@ const Password = () => {
                 <>
                   <p>Memproses...</p> <Spinner />
                 </>
+              ) : role === Roles.supplier ? (
+                "Lanjutkan"
               ) : (
-                role === Roles.supplier ? "Lanjutkan" : "Daftar"
+                "Daftar"
               )}
             </Button>
           </div>

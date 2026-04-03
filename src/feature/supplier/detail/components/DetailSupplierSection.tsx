@@ -3,6 +3,7 @@
 import { ArrowLeft } from "lucide-react";
 import DetailSearchBar from "@/feature/supplier/detail/components/DetailSearchBar";
 import DetailSupplierCard from "@/feature/supplier/detail/components/DetailSupplierCard";
+import DetailSupplierCardSkeleton from "@/feature/supplier/detail/components/DetailSupplierCardSkeleton";
 import TampilkanButton from "@/feature/supplier/detail/components/TampilkanButton";
 import KeranjangButton from "@/feature/supplier/detail/components/KeranjangButton";
 import DaftarPesananCard from "@/feature/supplier/detail/components/DaftarPesananCard";
@@ -19,6 +20,7 @@ import { useDetailSupplierSection } from "@/feature/supplier/detail/hooks/use-de
 
 const DetailSupplierSection = () => {
   const {
+    isLoadingProducts,
     searchQuery,
     setSearchQuery,
     showAllProducts,
@@ -62,16 +64,23 @@ const DetailSupplierSection = () => {
           >
             <div className="pr-6 pb-6">
               <div className="grid grid-cols-2 gap-x-5 gap-y-5 md:grid-cols-3 md:gap-x-6 md:gap-y-16">
-                {displayedProducts.map((item) => (
-                  <DetailSupplierCard
-                    key={item.id}
-                    data={item}
-                    quantity={quantities[item.id] ?? 0}
-                    onIncrease={() => updateQuantity(item.id, "inc")}
-                    onDecrease={() => updateQuantity(item.id, "dec")}
-                  />
-                ))}
-                {displayedProducts.length === 0 && (
+                {isLoadingProducts &&
+                  Array.from({ length: 9 }).map((_, index) => (
+                    <DetailSupplierCardSkeleton key={`detail-skeleton-${index}`} />
+                  ))}
+
+                {!isLoadingProducts &&
+                  displayedProducts.map((item) => (
+                    <DetailSupplierCard
+                      key={item.id}
+                      data={item}
+                      quantity={quantities[item.id] ?? 0}
+                      onIncrease={() => updateQuantity(item.id, "inc")}
+                      onDecrease={() => updateQuantity(item.id, "dec")}
+                    />
+                  ))}
+
+                {!isLoadingProducts && displayedProducts.length === 0 && (
                   <p className="col-span-2 rounded-2xl border-2 border-dashed border-green-800 bg-white p-4 text-center text-sm font-semibold text-green-900 md:col-span-3 md:text-lg">
                     Produk tidak ditemukan.
                   </p>

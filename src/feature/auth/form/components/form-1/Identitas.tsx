@@ -1,22 +1,15 @@
 import { Card, CardContent, CardHeader } from "@/shared/component/ui/card";
 import { Store } from "lucide-react";
 import { Field } from "@/shared/component/ui/field";
-import { useState } from "react";
 import { FormInputGroup } from "@/shared/component/auth/FormInputGroup";
+import { useFormStore } from "@/shared/store/useFormStore";
 
 const Progress = () => {
-  const [form, setForm] = useState({
-    nama: "",
-    pemilik: "",
-    alamat: "",
-    telepon: "",
-  });
+  const identitas = useFormStore((state) => state.identitas);
+  const setIdentitasField = useFormStore((state) => state.setIdentitasField);
 
-  const handleChange = (field: string, value: string) => {
-    setForm((prev) => ({
-      ...prev,
-      [field]: value,
-    }));
+  const handleChange = (field: keyof typeof identitas, value: string) => {
+    setIdentitasField(field, value);
   };
 
   return (
@@ -45,8 +38,8 @@ const Progress = () => {
                     Nama Usaha <span className="text-[#FF4747]">*</span>
                   </div>
                 }
-                value={form.nama}
-                onChange={(val) => handleChange("nama", val)}
+                value={identitas.store_name}
+                onChange={(val) => handleChange("store_name", val)}
                 placeholder="Masukkan Nama Usaha"
               />
             </div>
@@ -57,8 +50,8 @@ const Progress = () => {
                     Nama Pemilik Usaha <span className="text-[#FF4747]">*</span>
                   </div>
                 }
-                value={form.nama}
-                onChange={(val) => handleChange("nama", val)}
+                value={identitas.owner_name}
+                onChange={(val) => handleChange("owner_name", val)}
                 placeholder="Masukkan Nama Pemilik Usaha"
               />
             </div>
@@ -69,8 +62,8 @@ const Progress = () => {
                     Alamat Usaha <span className="text-[#FF4747]">*</span>
                   </div>
                 }
-                value={form.nama}
-                onChange={(val) => handleChange("nama", val)}
+                value={identitas.address}
+                onChange={(val) => handleChange("address", val)}
                 placeholder="Masukkan Alamat Usaha"
               />
             </div>
@@ -81,8 +74,8 @@ const Progress = () => {
                     No HP Aktif <span className="text-[#FF4747]">*</span>
                   </div>
                 }
-                value={form.nama}
-                onChange={(val) => handleChange("nama", val)}
+                value={identitas.contact_number}
+                onChange={(val) => handleChange("contact_number", val)}
                 placeholder="Masukkan No HP Aktif"
               />
             </div>

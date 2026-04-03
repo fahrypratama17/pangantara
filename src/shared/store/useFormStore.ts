@@ -1,56 +1,27 @@
 import { create } from "zustand";
+import type {
+  FormAnswersValues,
+  FormIdentitasValues,
+} from "@/feature/auth/form/types/type";
 
-type Answers = {
-  daging?: {
-    jenisDaging?: "ayam" | "sapi" | "ikan";
+type Identitas = FormIdentitasValues;
 
-    RPH?: "ya" | "tidak";
-    namaRPH?: string;
-    NKV?: "ya" | "tidak";
-    nomorNKV?: string;
-    uploadBukti?: ("NKV" | "invoice" | "sks" | "fotlab")[];
-    dagingSegar?: "ya" | "tidak";
-    dagingAman?: "ya" | "tidak";
-
-    ciriIkan?: "ya" | "tidak";
-  };
-
-  sayur?: {
-    asalSayur?: "petani" | "distributor" | "kebun";
-    sayurSegar?: "ya" | "tidak";
-  };
-
-  buah?: {
-    asalBuah?: "petani" | "distributor" | "kebun";
-    buahSegar?: "ya" | "tidak";
-  };
-
-  ternak?: {
-    jenisTernak?: "susu" | "telur";
-
-    sumberTelur?: "sendiri" | "lokal" | "distributor";
-    namaPeternakan?: string;
-    telurAman?: "ya" | "tidak";
-
-    jenisSusu?: "segar" | "pasteurisasi" | "uht";
-    asalSusu?: "sapi" | "koperasi" | "distributor";
-    usahaSusu?: string;
-    susuAman?: "ya" | "tidak";
-
-    NKV?: "ya" | "tidak";
-    nomorNKV?: string;
-    uploadBukti?: ("NKV" | "invoice" | "sks" | "fotlab")[];
-  };
-};
+type Answers = FormAnswersValues;
 
 type FormStore = {
   step: number;
   category: string | null;
+  identitas: Identitas;
   answers: Answers;
   isQuestionOpen: boolean;
 
   setStep: (step: number) => void;
   setCategory: (category: string) => void;
+  setIdentitasField: <K extends keyof Identitas>(
+    field: K,
+    value: Identitas[K],
+  ) => void;
+  resetIdentitas: () => void;
   resetAnswers: () => void;
   setAnswers: <
     C extends keyof Answers,
@@ -65,6 +36,12 @@ type FormStore = {
 export const useFormStore = create<FormStore>((set) => ({
   step: 1,
   category: null,
+  identitas: {
+    store_name: "",
+    owner_name: "",
+    address: "",
+    contact_number: "",
+  },
   answers: {},
   isQuestionOpen: false,
 
@@ -72,6 +49,25 @@ export const useFormStore = create<FormStore>((set) => ({
 
   setCategory: (category) =>
     set({ category, answers: {}, isQuestionOpen: true }),
+
+  setIdentitasField: (field, value) =>
+    set((state) => ({
+      identitas: {
+        ...state.identitas,
+        [field]: value,
+      },
+    })),
+
+  resetIdentitas: () =>
+    set({
+      identitas: {
+        store_name: "",
+        owner_name: "",
+        address: "",
+        contact_number: "",
+      },
+    }),
+
   resetAnswers: () => set({ answers: {} }),
 
   setAnswers: (category, key, value) =>

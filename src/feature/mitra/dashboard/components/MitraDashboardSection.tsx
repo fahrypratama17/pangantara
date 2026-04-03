@@ -92,7 +92,7 @@ const MitraDashboardSection = () => {
                 </p>
               </div>
             </div>
-            <Link href="/admin/monitoring">
+            <Link href="/mitra/pesanan">
               <Button className="h-6 cursor-pointer bg-white text-[10px] font-bold text-green-500 hover:scale-105">
                 Lihat semua <ArrowRight />
               </Button>

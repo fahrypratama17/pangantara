@@ -1,46 +1,12 @@
-"use client";
-
-import {
-  Store,
-  ClipboardList,
-  Coffee,
-  ShoppingCart,
-  ArrowRight,
-} from "lucide-react";
-import Card from "@/feature/cms/dashboard/components/AdminCard";
+import { ShoppingCart, ArrowRight } from "lucide-react";
 import AdminTable from "@/feature/cms/dashboard/components/AdminTable";
 import { orders } from "@/feature/cms/dashboard/data/data";
 import Link from "next/link";
 import { Button } from "@/shared/component/ui/button";
 import AdminCardMobile from "@/feature/cms/dashboard/components/AdminCardMobile";
-import { useDashboardSummaryQuery } from "@/shared/repository/dashboard-summary/query";
-import { useDashboardSummaryErrorToast } from "@/hooks/use-dashboard-summary-error-toast";
+import AdminDashboardSummaryCards from "@/feature/cms/dashboard/components/AdminDashboardSummaryCards";
 
 const AdminDashboardSection = () => {
-  const { data, isLoading, isError, error } = useDashboardSummaryQuery();
-  useDashboardSummaryErrorToast(
-    isError,
-    error instanceof Error ? error : null,
-  );
-
-  const cardData = [
-    {
-      title: "Total Mitra",
-      value: data?.total_supplier ?? "-",
-      icon: <Store className="h-3 w-3 md:h-7.5 md:w-7.5" />,
-    },
-    {
-      title: "Menunggu Verifikasi",
-      value: data?.supplier_pending ?? "-",
-      icon: <ClipboardList className="h-3 w-3 md:h-7.5 md:w-7.5" />,
-    },
-    {
-      title: "Total SPPG",
-      value: data?.total_sppg ?? "-",
-      icon: <Coffee className="h-3 w-3 md:h-7.5 md:w-7.5" />,
-    },
-  ];
-
   return (
     <section>
       <div className="shadow-[0_4px_2px_#0000000A]">
@@ -66,17 +32,9 @@ const AdminDashboardSection = () => {
             Berikut ringkasan aktivitas platform PANGANTARA.
           </p>
         </div>
-        <div className="grid w-full grid-cols-2 gap-6">
-          {cardData.map((item, index) => (
-            <Card
-              key={index}
-              icon={item.icon}
-              title={item.title}
-              value={item.value}
-              isLoading={isLoading}
-            />
-          ))}
-        </div>
+
+        <AdminDashboardSummaryCards />
+
         <div className="block w-full md:hidden">
           <div className="flex w-full items-center justify-between rounded-[12px] border border-b-0 border-green-900 bg-green-600 p-3">
             <div className="flex items-center gap-3">

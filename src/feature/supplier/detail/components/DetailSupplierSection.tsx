@@ -1,10 +1,8 @@
 "use client";
 
-import { useState } from "react";
 import { ArrowLeft } from "lucide-react";
 import DetailSearchBar from "@/feature/supplier/detail/components/DetailSearchBar";
 import DetailSupplierCard from "@/feature/supplier/detail/components/DetailSupplierCard";
-import { cardDetailData } from "@/feature/supplier/detail/data/data";
 import TampilkanButton from "@/feature/supplier/detail/components/TampilkanButton";
 import KeranjangButton from "@/feature/supplier/detail/components/KeranjangButton";
 import DaftarPesananCard from "@/feature/supplier/detail/components/DaftarPesananCard";
@@ -17,12 +15,31 @@ import {
 } from "@/shared/component/ui/dialog";
 import { ScrollArea } from "@/shared/component/ui/scroll-area";
 import Link from "next/link";
+import { useDetailSupplierSection } from "@/feature/supplier/detail/hooks/use-detail-supplier-section";
 
 const DetailSupplierSection = () => {
-  const [showAll, setShowAll] = useState(false);
-  const [openScan, setOpenScan] = useState(false);
-
-  const displayed = showAll ? cardDetailData : cardDetailData.slice(0, 9);
+  const {
+    searchQuery,
+    setSearchQuery,
+    showAllProducts,
+    setShowAllProducts,
+    quantities,
+    updateQuantity,
+    displayedProducts,
+    cartOpened,
+    setCartOpened,
+    selectedItems,
+    subtotal,
+    shippingCost,
+    tax,
+    total,
+    formatCurrency,
+    openScan,
+    setOpenScan,
+    canOpenCart,
+    showAllOrderItems,
+    setShowAllOrderItems,
+  } = useDetailSupplierSection();
 
   return (
     <section className="mt-30 md:mt-40">
@@ -36,7 +53,7 @@ const DetailSupplierSection = () => {
       </div>
       <div className="mt-10 w-full rounded-t-[56px] border-t-4 border-green-900 bg-green-50 py-20 md:rounded-t-[100px]">
         <div className="mx-auto mb-10 w-[90%] md:mb-20 md:w-[85%]">
-          <DetailSearchBar />
+          <DetailSearchBar value={searchQuery} onChange={setSearchQuery} />
         </div>
         <div className="mx-auto w-[85%]">
           <ScrollArea
@@ -45,9 +62,20 @@ const DetailSupplierSection = () => {
           >
             <div className="pr-6 pb-6">
               <div className="grid grid-cols-2 gap-x-5 gap-y-5 md:grid-cols-3 md:gap-x-6 md:gap-y-16">
-                {displayed.map((item) => (
-                  <DetailSupplierCard key={item.id} data={item} />
+                {displayedProducts.map((item) => (
+                  <DetailSupplierCard
+                    key={item.id}
+                    data={item}
+                    quantity={quantities[item.id] ?? 0}
+                    onIncrease={() => updateQuantity(item.id, "inc")}
+                    onDecrease={() => updateQuantity(item.id, "dec")}
+                  />
                 ))}
+                {displayedProducts.length === 0 && (
+                  <p className="col-span-2 rounded-2xl border-2 border-dashed border-green-800 bg-white p-4 text-center text-sm font-semibold text-green-900 md:col-span-3 md:text-lg">
+                    Produk tidak ditemukan.
+                  </p>
+                )}
               </div>
             </div>
           </ScrollArea>
@@ -55,17 +83,34 @@ const DetailSupplierSection = () => {
 
         <div className="mx-auto mt-10 mb-10 flex w-[90%] items-center justify-between md:mt-20 md:mb-20 md:w-[85%]">
           <TampilkanButton
-            showAll={showAll}
-            onClick={() => setShowAll(!showAll)}
+            showAll={showAllProducts}
+            onClick={() => setShowAllProducts(!showAllProducts)}
           />
 
-          <KeranjangButton showAll={showAll} onClick={() => setShowAll(true)} />
+          <KeranjangButton
+            onClick={() => setCartOpened(true)}
+            disabled={!canOpenCart}
+          />
         </div>
 
-        <div className="mx-auto mt-10 mb-10 flex w-[90%] flex-col items-start gap-12 md:mt-20 md:mb-20 md:grid md:w-[85%] md:grid-cols-[1.5fr_1fr] md:justify-between">
-          <DaftarPesananCard />
-          <RincianPesananCard onBayar={() => setOpenScan(true)} />
-        </div>
+        {cartOpened && (
+          <div className="mx-auto mt-10 mb-10 flex w-[90%] flex-col items-start gap-12 md:mt-20 md:mb-20 md:grid md:w-[85%] md:grid-cols-[1.5fr_1fr] md:justify-between">
+            <DaftarPesananCard
+              items={selectedItems}
+              formatCurrency={formatCurrency}
+              showAllItems={showAllOrderItems}
+              onToggleShowAll={() => setShowAllOrderItems((prev) => !prev)}
+            />
+            <RincianPesananCard
+              onBayar={() => setOpenScan(true)}
+              subtotal={subtotal}
+              shippingCost={shippingCost}
+              tax={tax}
+              total={total}
+              formatCurrency={formatCurrency}
+            />
+          </div>
+        )}
       </div>
 
       <Dialog open={openScan} onOpenChange={setOpenScan}>

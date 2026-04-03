@@ -5,26 +5,45 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useState, useEffect } from "react";
 import { useIsMobile } from "@/hooks/use-mobile";
+import { useLogoutMutation } from "@/shared/repository/login/query";
+import { Roles } from "@/shared/lib/auth/role";
+import { ChevronDown, ChevronUp, LogOut } from "lucide-react";
+
+type NavbarAuthUser = {
+  isLoggedIn?: boolean;
+  name?: string;
+  address?: string;
+  role?: Roles;
+};
 
 const NavLink = [
   { name: "Beranda", href: "/#beranda", path: "/" },
   {
     name: "Cari Supplier",
-    href: "/supplier/cari-supplier",
-    path: "/supplier/cari-supplier",
+    href: "/sppg/cari-supplier",
+    path: "/sppg/cari-supplier",
   },
   { name: "FAQ", href: "/FAQ", path: "/FAQ" },
-  { name: "Hubungi", href: "/supplier/hubungi", path: "/supplier/hubungi" },
+  { name: "Hubungi", href: "/sppg/hubungi", path: "/sppg/hubungi" },
 ];
 
-const Navbar = () => {
+type NavbarProps = {
+  authUser?: NavbarAuthUser;
+};
+
+const Navbar = ({ authUser }: NavbarProps) => {
   const pathname = usePathname();
   const isMobile = useIsMobile();
+  const { mutate: logout, isPending: isLogoutPending } = useLogoutMutation();
 
   const [scrolled, setScrolled] = useState(false);
   const [showNavbar, setShowNavbar] = useState(true);
   const [lastScrollY, setLastScrollY] = useState(0);
   const [isOpen, setIsOpen] = useState(false);
+  const [isAccountMenuOpen, setIsAccountMenuOpen] = useState(false);
+
+  const isLoggedInSppg =
+    Boolean(authUser?.isLoggedIn) && authUser?.role === Roles.sppg;
 
   useEffect(() => {
     const handleScroll = () => {
@@ -46,6 +65,9 @@ const Navbar = () => {
 
     return () => window.removeEventListener("scroll", handleScroll);
   }, [lastScrollY]);
+
+  const displayName = authUser?.name?.trim() || "SPPG";
+  const displayAddress = authUser?.address?.trim() || "Alamat belum tersedia";
 
   return (
     <>
@@ -72,6 +94,9 @@ const Navbar = () => {
                 const handleClick = (
                   e: React.MouseEvent<HTMLAnchorElement>,
                 ) => {
+                  setIsAccountMenuOpen(false);
+                  setIsOpen(false);
+
                   if (item.path === "/" && pathname === "/") {
                     e.preventDefault();
                     window.scrollTo({ top: 0 });
@@ -96,26 +121,71 @@ const Navbar = () => {
                 );
               })}
             </div>
-            <div className="flex items-center justify-center gap-1">
-              <Link
-                href={"/login"}
-                className="group text-lg-bold relative overflow-hidden rounded-[24px] border-3 border-orange-600 px-9 py-1.25 text-orange-900"
-              >
-                <span className="relative z-10 transition-colors duration-300 group-hover:text-white">
-                  Masuk
-                </span>
-                <span className="absolute inset-0 origin-left scale-x-0 bg-orange-600 transition-transform duration-300 group-hover:scale-x-100"></span>
-              </Link>
-              <Link
-                href={"/register"}
-                className="group text-lg-bold relative overflow-hidden rounded-[24px] border-3 border-orange-600 bg-orange-600 px-9 py-1.25 text-white"
-              >
-                <span className="relative z-10 transition-colors duration-300 group-hover:text-orange-900">
-                  Daftar
-                </span>
-                <span className="absolute inset-0 origin-left scale-x-0 bg-white transition-transform duration-300 group-hover:scale-x-100"></span>
-              </Link>
-            </div>
+            {isLoggedInSppg ? (
+              <div className="relative">
+                <button
+                  type="button"
+                  onClick={() => setIsAccountMenuOpen((prev) => !prev)}
+                  className="text-lg-bold flex cursor-pointer items-center gap-4 rounded-[24px] px-6 py-1.25 text-orange-900"
+                >
+                  <p>{displayName}</p>
+                  <ChevronDown
+                    className={`transition-transform duration-500 ${
+                      isAccountMenuOpen ? "rotate-180" : "rotate-0"
+                    }`}
+                  />
+                </button>
+
+                {isAccountMenuOpen && (
+                  <div className="absolute right-0 z-50 mt-2 w-full rounded-2xl border border-green-900 bg-[#EEE6D4] shadow-md">
+                    <div className="border-b border-green-900 px-4 py-3">
+                      <p className="text-base font-bold text-green-900">
+                        {displayName}
+                      </p>
+                      <p className="text-xs text-green-700">{displayAddress}</p>
+                    </div>
+                    <button
+                      type="button"
+                      onClick={() => {
+                        setIsAccountMenuOpen(false);
+                        logout();
+                      }}
+                      disabled={isLogoutPending}
+                      className="w-full cursor-pointer rounded-b-2xl px-4 py-3 text-left text-sm font-semibold text-green-900 transition hover:bg-[#E5DDCC] disabled:cursor-not-allowed disabled:opacity-60"
+                    >
+                      {isLogoutPending ? (
+                        "Memproses..."
+                      ) : (
+                        <div className="flex items-center justify-center gap-2">
+                          <LogOut className="p-1" /> <p>Keluar</p>
+                        </div>
+                      )}
+                    </button>
+                  </div>
+                )}
+              </div>
+            ) : (
+              <div className="flex items-center justify-center gap-1">
+                <Link
+                  href={"/login"}
+                  className="group text-lg-bold relative overflow-hidden rounded-[24px] border-3 border-orange-600 px-9 py-1.25 text-orange-900"
+                >
+                  <span className="relative z-10 transition-colors duration-300 group-hover:text-white">
+                    Masuk
+                  </span>
+                  <span className="absolute inset-0 origin-left scale-x-0 bg-orange-600 transition-transform duration-300 group-hover:scale-x-100"></span>
+                </Link>
+                <Link
+                  href={"/register"}
+                  className="group text-lg-bold relative overflow-hidden rounded-[24px] border-3 border-orange-600 bg-orange-600 px-9 py-1.25 text-white"
+                >
+                  <span className="relative z-10 transition-colors duration-300 group-hover:text-orange-900">
+                    Daftar
+                  </span>
+                  <span className="absolute inset-0 origin-left scale-x-0 bg-white transition-transform duration-300 group-hover:scale-x-100"></span>
+                </Link>
+              </div>
+            )}
           </div>
         </div>
       )}
@@ -186,22 +256,47 @@ const Navbar = () => {
                 </Link>
               ))}
 
-              <div className="mt-4 flex flex-col gap-3">
-                <Link
-                  href="/login"
-                  onClick={() => setIsOpen(false)}
-                  className="rounded-xl border-2 border-orange-500 px-6 py-2 text-center text-white"
-                >
-                  Masuk
-                </Link>
-                <Link
-                  href="/register"
-                  onClick={() => setIsOpen(false)}
-                  className="rounded-xl bg-orange-500 px-6 py-2 text-center text-white"
-                >
-                  Daftar
-                </Link>
-              </div>
+              {isLoggedInSppg ? (
+                <div className="mt-4 flex flex-col gap-3">
+                  <button
+                    type="button"
+                    className="rounded-xl border-2 border-orange-500 px-6 py-2 text-center font-semibold text-white"
+                  >
+                    {displayName}
+                  </button>
+                  <p className="max-w-[220px] text-center text-xs text-white/80">
+                    {displayAddress}
+                  </p>
+                  <button
+                    type="button"
+                    onClick={() => {
+                      setIsOpen(false);
+                      logout();
+                    }}
+                    disabled={isLogoutPending}
+                    className="rounded-xl bg-red-500 px-6 py-2 text-center text-white disabled:cursor-not-allowed disabled:opacity-60"
+                  >
+                    {isLogoutPending ? "Memproses..." : "Logout"}
+                  </button>
+                </div>
+              ) : (
+                <div className="mt-4 flex flex-col gap-3">
+                  <Link
+                    href="/login"
+                    onClick={() => setIsOpen(false)}
+                    className="rounded-xl border-2 border-orange-500 px-6 py-2 text-center text-white"
+                  >
+                    Masuk
+                  </Link>
+                  <Link
+                    href="/register"
+                    onClick={() => setIsOpen(false)}
+                    className="rounded-xl bg-orange-500 px-6 py-2 text-center text-white"
+                  >
+                    Daftar
+                  </Link>
+                </div>
+              )}
             </div>
           </div>
         </>

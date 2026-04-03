@@ -1,3 +1,5 @@
+"use client";
+
 import { useState } from "react";
 import { useFormStore } from "@/shared/store/useFormStore";
 import {
@@ -6,7 +8,7 @@ import {
   formSchema,
   sayurSchema,
   ternakSchema,
-} from "@/shared/schema/form.schema";
+} from "@/feature/auth/form/types/type";
 import { z } from "zod";
 
 export const useFormValidation = () => {

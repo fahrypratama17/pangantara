@@ -28,7 +28,7 @@ const DetailSupplierSection = () => {
     <section className="mt-30 md:mt-40">
       <div className="mx-auto w-[90%] md:w-[85%]">
         <Link
-          href="/supplier/cari-supplier"
+          href="/sppg/cari-supplier"
           className="flex h-10 w-10 cursor-pointer items-center justify-center rounded-full border-2 border-green-900 bg-green-50 p-2 transition-transform duration-200 hover:scale-105 md:h-12 md:w-12"
         >
           <ArrowLeft />

@@ -41,7 +41,7 @@ const CariCard = ({ title, address, category }: Props) => {
           </div>
         </div>
 
-        <Link href="/supplier/detail-supplier">
+        <Link href="/sppg/detail-supplier">
           <Button className="h-6 w-full cursor-pointer border-2 border-green-900 bg-orange-400 text-[8px] font-bold text-green-900 hover:scale-105 md:py-5 md:text-xl">
             Detail Supplier
           </Button>

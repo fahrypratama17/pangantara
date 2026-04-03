@@ -1,0 +1,26 @@
+import type { Roles } from "@/shared/lib/auth/role";
+
+export interface IRegisterRequest {
+  name: string;
+  email: string;
+  address: string;
+  password: string;
+  confirm_password: string;
+  role: Roles;
+}
+
+export interface IRegisterUser {
+  user_id: string;
+  name: string;
+  email: string;
+  address?: string;
+  role: Roles;
+  created_at: string;
+  updated_at: string;
+}
+
+export interface IRegisterResponse {
+  success: boolean;
+  message: string;
+  data: IRegisterUser;
+}

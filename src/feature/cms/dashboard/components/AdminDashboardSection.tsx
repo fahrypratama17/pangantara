@@ -1,6 +1,7 @@
 "use client";
 
 import {
+  UserRound,
   Store,
   ClipboardList,
   Coffee,
@@ -20,10 +21,7 @@ import { useSessionQuery } from "@/shared/repository/session-manager/query";
 const AdminDashboardSection = () => {
   const { data, isLoading, isError, error } = useDashboardSummaryQuery();
   const { data: session } = useSessionQuery();
-  useDashboardSummaryErrorToast(
-    isError,
-    error instanceof Error ? error : null,
-  );
+  useDashboardSummaryErrorToast(isError, error instanceof Error ? error : null);
 
   const displayName = session?.user?.name?.trim() || "Admin";
 
@@ -53,7 +51,9 @@ const AdminDashboardSection = () => {
             Ringkasan Dashboard Admin
           </h1>
           <div className="flex items-center gap-4">
-            <div className="h-13 w-13 rounded-full bg-orange-600"></div>
+            <div className="rounded-full bg-orange-600 p-3">
+              <UserRound className="text-white" />
+            </div>
             <div>
               <p className="text-xl-bold text-green-800">{displayName}</p>
               <p className="text-sm-semibold text-green-400">Super Admin</p>

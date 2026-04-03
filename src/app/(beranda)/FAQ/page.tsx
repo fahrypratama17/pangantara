@@ -1,5 +1,10 @@
 import PenggunaanContainer from "@/feature/supplier/penggunaan/container/PenggunaanContainer";
 
+export const metadata = {
+  title: "Pangantara - FAQ",
+  description: "Form Identitas Mitra",
+};
+
 const page = () => {
   return (
     <>

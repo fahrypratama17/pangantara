@@ -14,7 +14,8 @@ export type PasswordToastKey =
   | "confirmPasswordRequired"
   | "passwordMinLength"
   | "passwordMaxLength"
-  | "passwordMismatch";
+  | "passwordMismatch"
+  | "mitraFormRequired";
 
 export type RegisterRequiredToastKey =
   | "nameRequired"
@@ -73,6 +74,12 @@ const passwordToastMap: Record<PasswordToastKey, ToastConfig> = {
     id: "register-password-confirmation",
     title: "Password Tidak Sama!",
     description: "Pastikan konfirmasi kata sandi sesuai.",
+  },
+  mitraFormRequired: {
+    type: "warning",
+    id: "register-mitra-form-required",
+    title: "Lengkapi form mitra terlebih dahulu",
+    description: "Isi form-1 dan form-2 sebelum membuat akun mitra.",
   },
 };
 
